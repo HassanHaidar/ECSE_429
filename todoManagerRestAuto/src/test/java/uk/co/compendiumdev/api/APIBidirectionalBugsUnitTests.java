@@ -16,7 +16,7 @@ import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.equalTo;
 
 @TestMethodOrder(MethodOrderer.Random.class)
-public class APIBugsUnitTests {
+public class APIBidirectionalBugsUnitTests {
 
     private static final String ID_FIELD = "id";
     private static final String TITLE_FIELD = "title";

@@ -4,10 +4,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import org.apache.http.HttpStatus;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Assumptions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import uk.co.compendiumdev.Environment;
@@ -30,6 +27,7 @@ import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.fail;
 
+@TestMethodOrder(MethodOrderer.Random.class)
 public class TodoAPIUnitTests {
     // Todos Paths
     private static final String ALL_TODOS_PATH = "/todos";
@@ -283,9 +281,6 @@ public class TodoAPIUnitTests {
                 .extract().body().jsonPath().getList(TODOS);
 
         Assertions.assertEquals(responses.size(), 2);
-        Assertions.assertEquals(responses.get(0).get(TITLE),TEST_TITLE);
-        Assertions.assertEquals(responses.get(1).get(TITLE),TEST_TITLE_2);
-
     }
 
 

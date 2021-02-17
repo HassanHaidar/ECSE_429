@@ -470,6 +470,69 @@ public class CategoriesAPIUnitTests {
                         "project." + DESCRIPTION_FIELD, equalTo(PROJECT_DESCRIPTION));
     }
 
+    /**
+     * BUG: Documentation says that when
+     * we get a specific project for a
+     * specific category, it returns 405.
+     */
+    @Test
+    public void getProjectForCategoryJsonBug() {
+        postCategoryAllFieldsJsonSuccess();
+        postProjectForCategory(categoryId);
+
+        given()
+                .when().get("categories/{id}/projects/{projectId}", categoryId, projectId)
+                .then()
+                .statusCode(HttpStatus.SC_NOT_FOUND);
+    }
+
+    /**
+     * BUG: Documentation says that when
+     * we get a specific project for a
+     * specific category, it returns 405.
+     */
+    @Test
+    public void postProjectForCategoryJsonBug() {
+        postCategoryAllFieldsJsonSuccess();
+        postProjectForCategory(categoryId);
+
+        given()
+                .when().post("categories/{id}/projects/{projectId}", categoryId, projectId)
+                .then()
+                .statusCode(HttpStatus.SC_NOT_FOUND);
+    }
+
+    /**
+     * BUG: Documentation says that when
+     * we get a specific todo for a
+     * specific category, it returns 405.
+     */
+    @Test
+    public void getTodoForCategoryJsonBug() {
+        postCategoryAllFieldsJsonSuccess();
+
+        given()
+                .when().get("categories/{id}/todos/{projectId}", categoryId, projectId)
+                .then()
+                .statusCode(HttpStatus.SC_NOT_FOUND);
+    }
+
+    /**
+     * BUG: Documentation says that when
+     * we get a specific todo for a
+     * specific category, it returns 405.
+     */
+    @Test
+    public void postTodoForCategoryJsonBug() {
+        postCategoryAllFieldsJsonSuccess();
+
+        given()
+                .when().post("categories/{id}/todos/{projectId}", categoryId, projectId)
+                .then()
+                .statusCode(HttpStatus.SC_NOT_FOUND);
+    }
+
+
     @Test
     public void getProjectsCategoriesJsonSuccess() {
         postCategory();
