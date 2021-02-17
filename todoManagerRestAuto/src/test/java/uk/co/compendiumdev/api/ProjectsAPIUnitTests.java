@@ -52,6 +52,7 @@ public class ProjectsAPIUnitTests {
 
     private static final String ERROR = "errorMessages";
     private static final String BAD_REQUEST = "Could not find field: ";
+    private static final String NOT_FOUND = "Could not find any instances with ";
     public static final String ERRONEOUS_FIELD = "erroneous_field";
 
     private static int projectId = 0;
@@ -644,7 +645,7 @@ public class ProjectsAPIUnitTests {
     }
 
     @Test
-    public void deleteCategoriesForProjectJsonSuccess() {
+    public void deleteCategoriesForProjectJsonFailure() {
         postProjectAllFieldsJsonSuccess();
         postCategoryForProject(projectId);
         given().
@@ -654,12 +655,19 @@ public class ProjectsAPIUnitTests {
                 contentType(ContentType.JSON).
                 statusCode(HttpStatus.SC_OK);
 
-        given().
+        String response;
+        response = given().
                 when().
                 delete(PROJECT_CATEGORIES_ID, projectId, categoryId).
                 then().
                 contentType(ContentType.JSON).
-                statusCode(HttpStatus.SC_NOT_FOUND);
+                statusCode(HttpStatus.SC_NOT_FOUND)
+                .extract().
+                        body().
+                        jsonPath().
+                        getList(ERROR).
+                        get(0).toString();
+        Assertions.assertEquals(NOT_FOUND + String.format("projects/%s/categories/%s", projectId, categoryId),response);
     }
 
 
@@ -674,10 +682,11 @@ public class ProjectsAPIUnitTests {
                 then().
                 contentType(ContentType.XML).
                 statusCode(HttpStatus.SC_OK);
+
     }
 
     @Test
-    public void deleteDeletedCategoriesForProjectXMLFails() {
+    public void deleteDeletedCategoriesForProjectXMLFailure() {
         postProjectAllFieldsJsonSuccess();
         postCategoryForProject(projectId);
         given().
@@ -688,13 +697,20 @@ public class ProjectsAPIUnitTests {
                 contentType(ContentType.XML).
                 statusCode(HttpStatus.SC_OK);
 
-        given().
+        String response = given().
                 accept(ContentType.XML).
                 when().
                 delete(PROJECT_CATEGORIES_ID, projectId, categoryId).
                 then().
                 contentType(ContentType.XML).
-                statusCode(HttpStatus.SC_NOT_FOUND);
+                statusCode(HttpStatus.SC_NOT_FOUND)
+                .extract().
+                        body().
+                        xmlPath().
+                        getList(ERROR).
+                        get(0).toString();
+
+        Assertions.assertEquals(NOT_FOUND + String.format("projects/%s/categories/%s", projectId, categoryId),response);
     }
 
 
