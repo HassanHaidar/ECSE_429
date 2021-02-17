@@ -456,18 +456,4 @@ public class TodoAPIUnitTests {
 
                 );
     }
-
-
-    // the taskof tests go bellow
-    
-    // create a taskof
-    
-    //get a taskof
-    
-    // BUG: return a project when we use an non existent ID of a todo.
-
-
-    
-    
-     
 }    
