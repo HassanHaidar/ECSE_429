@@ -29,32 +29,27 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 @TestMethodOrder(MethodOrderer.Random.class)
 public class TodoAPIUnitTests {
-    // Todos Paths
+
     private static final String ALL_TODOS_PATH = "/todos";
-    private static final String SPECIFIC_TODO_PATH = "/todos/{id}";
     private static final String CLEAR_PATH = "/admin/data/thingifier";
     private static final String TODOS = "todos";
     private static final String TODO= "todo";
 
-    // Todos Fields
     private static final String ID = "id";
     private static final String TITLE = "title";
     private static final String DESC = "description";
     private static final String DONE_STATUS = "doneStatus";
 
-    // Test Fields
     private static final String TEST_TITLE = "Do my homework.";
     private static final String TEST_DESC = "So much homework to do.";
     private static final String TEST_TITLE_2 = "Feed the dog.";
     private static final String TEST_DESC_2 = "So many mouths to feed.";
 
-    // Useful Constants
     private static final String EMPTY_STRING = "";
     private static final String WHITESPACE_STRING = " ";
     private static final String TRUE = "true";
     private static final String FALSE = "false";
     private static final int INT = 1;
-    private static final boolean SOME_BOOLEAN = true;
     private static final String ERROR_TITLE = "title : field is mandatory";
     private static final String CATEGORIES = "categories";
 
@@ -209,8 +204,6 @@ public class TodoAPIUnitTests {
                 .body(TITLE, equalTo(TEST_TITLE),
                         DESC, equalTo(TEST_DESC),
                         DONE_STATUS, equalTo(TRUE));
-
-        //Assertions.assertEquals(response, ERROR_TITLE);
     }
 
     @Test
