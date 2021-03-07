@@ -42,7 +42,7 @@ public class ProjectStepDefinitions {
 
         List<DataTableRow> rows = table.getGherkinRows();
 
-        for(int i = 1; i < rows.size(); i++){
+        for (int i = 1; i < rows.size(); i++) {
             List<String> cells = rows.get(i).getCells();
 
             String projectTitle = cells.get(0);
@@ -53,7 +53,7 @@ public class ProjectStepDefinitions {
             final HashMap<String, Object> givenBody = new HashMap<>();
             givenBody.put(TITLE_FIELD, projectTitle);
             givenBody.put(DESCRIPTION_FIELD, projectDescription);
-            givenBody.put(ACTIVE_FIELD,  Boolean.parseBoolean(active));
+            givenBody.put(ACTIVE_FIELD, Boolean.parseBoolean(active));
             givenBody.put(COMPLETED_FIELD, Boolean.parseBoolean(completed));
 
             String id = given().
@@ -107,7 +107,7 @@ public class ProjectStepDefinitions {
         //throw new PendingException();
     }
 
-    @And("^Project with title \"([^\"]*)\" with description \"([^\"]*)\" should exist$" )
+    @And("^Project with title \"([^\"]*)\" with description \"([^\"]*)\" should exist$")
     public void theProjectWithTitleAndDescriptionShouldExist(String arg0, String arg1) throws Throwable {
         List<Map<String, Object>> projects =
                 given().
@@ -122,8 +122,8 @@ public class ProjectStepDefinitions {
                         getList("projects");
 
         assertTrue(projects.stream().anyMatch(
-                project-> project.get(TITLE_FIELD).equals(arg0) &&
-                          project.get(DESCRIPTION_FIELD).equals(arg1)
+                project -> project.get(TITLE_FIELD).equals(arg0) &&
+                        project.get(DESCRIPTION_FIELD).equals(arg1)
                 )
         );
     }
@@ -143,7 +143,7 @@ public class ProjectStepDefinitions {
                         getList("projects");
 
         assertTrue(projects.stream().anyMatch(
-                project-> project.get(ACTIVE_FIELD).equals(arg0) &&
+                project -> project.get(ACTIVE_FIELD).equals(arg0) &&
                         project.get(COMPLETED_FIELD).equals(arg1)
                 )
         );
@@ -180,7 +180,7 @@ public class ProjectStepDefinitions {
         //throw new PendingException();
     }
 
-    @And("^Project with title \"([^\"]*)\" should exist$" )
+    @And("^Project with title \"([^\"]*)\" should exist$")
     public void theProjectWithTitleShouldExist(String arg0, String arg1) throws Throwable {
         List<Map<String, Object>> projects =
                 given().
@@ -195,13 +195,13 @@ public class ProjectStepDefinitions {
                         getList("projects");
 
         assertTrue(projects.stream().anyMatch(
-                project-> project.get(TITLE_FIELD).equals(arg0)
+                project -> project.get(TITLE_FIELD).equals(arg0)
                 )
         );
     }
 
     @And("^Project \"([^\"]*)\" should not exist in the system$")
-    public void courseToDoListShouldNotExistInTheSystem(String projectTitle) throws Throwable {
+    public void projectShouldNotExistInTheSystem(String projectTitle) throws Throwable {
         List<Map<String, Object>> projects =
                 given().
                         when().
@@ -215,14 +215,14 @@ public class ProjectStepDefinitions {
                         getList("projects");
 
         assertTrue(projects.stream().noneMatch(
-                project-> project.get(TITLE_FIELD).equals(projectTitle)
+                project -> project.get(TITLE_FIELD).equals(projectTitle)
                 )
         );
     }
 
     @Given("^Existing projects do not have any tasks$")
     public void existingProjectsDoNotHaveAnyTasks() throws Throwable {
-        for(Map.Entry<String, String> entry : projects.entrySet()){
+        for (Map.Entry<String, String> entry : projects.entrySet()) {
             List<Map<String, Object>> tasks =
                     given().
                             pathParam(ID_FIELD, entry.getValue()).
@@ -249,13 +249,13 @@ public class ProjectStepDefinitions {
         jsonBody.put(DESCRIPTION_FIELD, taskDescription);
 
         AppRunningStepDefinition.lastResponse.addFirst(
-            given().pathParam("id", projectId)
-                    .body(jsonBody)
-                    .when().post(PROJECT_TASKS)
-                    .then()
-                    .contentType(ContentType.JSON)
-                    .statusCode(HttpStatus.SC_CREATED)
-                .extract()
+                given().pathParam("id", projectId)
+                        .body(jsonBody)
+                        .when().post(PROJECT_TASKS)
+                        .then()
+                        .contentType(ContentType.JSON)
+                        .statusCode(HttpStatus.SC_CREATED)
+                        .extract()
         );
     }
 
@@ -301,7 +301,7 @@ public class ProjectStepDefinitions {
     }
 
     @When("^I create a task \"([^\"]*)\" with \"([^\"]*)\" for a non-existing project \"([^\"]*)\"$")
-    public void createTaskWithDescriptionForNonExistingProject(String taskTitle, String taskDescription, String projectTitle){
+    public void createTaskWithDescriptionForNonExistingProject(String taskTitle, String taskDescription, String projectTitle) {
 
         final HashMap<String, Object> jsonBody = new HashMap<>();
         jsonBody.put(TITLE_FIELD, taskTitle);
@@ -319,7 +319,7 @@ public class ProjectStepDefinitions {
     }
 
     @And("^\"([^\"]*)\" task should not exist in the system for \"([^\"]*)\"$")
-    public void taskShouldNotExistInSystem(String taskTitle, String projectTitle){
+    public void taskShouldNotExistInSystem(String taskTitle, String projectTitle) {
         // Write code here that turns the phrase above into concrete actions
         ;
         List<Map<String, Object>> tasks =
@@ -339,6 +339,126 @@ public class ProjectStepDefinitions {
                 )
         );
 
+    }
+
+    @Given("^Existing projects do not have any categories$")
+    public void existingProjectsDoNotHaveAnyCategories() throws Throwable {
+        for (Map.Entry<String, String> entry : projects.entrySet()) {
+            List<Map<String, Object>> categories =
+                    given().
+                            pathParam(ID_FIELD, entry.getValue()).
+                            when().
+                            get(PROJECT_CATEGORIES).
+                            then().
+                            statusCode(HttpStatus.SC_OK).
+                            contentType(ContentType.JSON).
+                            extract().
+                            body().
+                            jsonPath().
+                            getList("categories");
+
+            assertEquals(0, categories.size());
+        }
+    }
+
+    @When("^I create a category \"([^\"]*)\" for existing project \"([^\"]*)\"$")
+    public void createCategoryForExistingProject(String categoryTitle, String projectTitle) {
+        String projectId = projects.get(projectTitle);
+
+        final HashMap<String, Object> jsonBody = new HashMap<>();
+        jsonBody.put(TITLE_FIELD, categoryTitle);
+
+        AppRunningStepDefinition.lastResponse.addFirst(
+                given().pathParam("id", projectId)
+                        .body(jsonBody)
+                        .when().post(PROJECT_CATEGORIES)
+                        .then()
+                        .contentType(ContentType.JSON)
+                        .statusCode(HttpStatus.SC_CREATED)
+                        .extract()
+        );
+    }
+
+    @And("^\"([^\"]*)\" project should have \"([^\"]*)\" category$")
+    public void projectShouldHaveCategory(String projectTitle, String categoryTitle) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        ;
+        String projectId = projects.get(projectTitle);
+        List<Map<String, Object>> projectCategories =
+                given().pathParam(ID_FIELD, projectId).
+                        when().
+                        get(PROJECT_CATEGORIES).
+                        then().
+                        statusCode(HttpStatus.SC_OK).
+                        contentType(ContentType.JSON).
+                        extract().
+                        body().
+                        jsonPath().
+                        getList("categories");
+
+        assertTrue(projectCategories.stream().anyMatch(
+                category -> category.get("title").equals(categoryTitle)
+                )
+        );
+    }
+
+    @When("I create a category \"([^\"]*)\" with description \"([^\"]*)\" for existing project \"([^\"]*)\"$")
+    public void createCategoryWithDescriptionForExistingProject(String categoryTitle, String categoryDescription, String projectTitle) {
+        String projectId = projects.get(projectTitle);
+
+        final HashMap<String, Object> jsonBody = new HashMap<>();
+        jsonBody.put(TITLE_FIELD, categoryTitle);
+        jsonBody.put(DESCRIPTION_FIELD, categoryDescription);
+
+        AppRunningStepDefinition.lastResponse.addFirst(
+                given().pathParam("id", projectId)
+                        .body(jsonBody)
+                        .when().post(PROJECT_CATEGORIES)
+                        .then()
+                        .contentType(ContentType.JSON)
+                        .statusCode(HttpStatus.SC_CREATED)
+                        .extract()
+        );
+    }
+
+    @When("^I create a category \"([^\"]*)\" with \"([^\"]*)\" for a non-existing project \"([^\"]*)\"$")
+    public void createCategoryWithDescriptionForNonExistingProject(String categoryTitle, String categoryDescription, String projectTitle) {
+
+        final HashMap<String, Object> jsonBody = new HashMap<>();
+        jsonBody.put(TITLE_FIELD, categoryTitle);
+        jsonBody.put(DESCRIPTION_FIELD, categoryDescription);
+
+        AppRunningStepDefinition.lastResponse.addFirst(
+                given().pathParam("id", NON_EXISTENT_PROJECT)
+                        .body(jsonBody)
+                        .when().post(PROJECT_CATEGORIES)
+                        .then()
+                        .contentType(ContentType.JSON)
+                        .statusCode(HttpStatus.SC_NOT_FOUND)
+                        .extract()
+        );
+    }
+
+    @And("^\"([^\"]*)\" category should not exist in the system for \"([^\"]*)\"$")
+    public void categoryShouldNotExistInSystem(String categoryTitle, String projectTitle) {
+        // Write code here that turns the phrase above into concrete actions
+        ;
+        List<Map<String, Object>> tasks =
+                given().
+                        when().
+                        get("/categories").
+                        then().
+                        statusCode(HttpStatus.SC_OK).
+                        contentType(ContentType.JSON).
+                        extract().
+                        body().
+                        jsonPath().
+                        getList("categories");
+
+        assertTrue(tasks.stream().noneMatch(
+                task -> task.get("title").equals(categoryTitle)
+                )
+        );
     }
 }
 
