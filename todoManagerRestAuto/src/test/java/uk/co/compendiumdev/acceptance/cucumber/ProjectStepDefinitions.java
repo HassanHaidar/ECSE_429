@@ -3,6 +3,7 @@ package uk.co.compendiumdev.acceptance.cucumber;
 import cucumber.api.DataTable;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import gherkin.formatter.model.DataTableRow;
 import io.restassured.http.ContentType;
@@ -15,6 +16,7 @@ import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ProjectStepDefinitions {
@@ -30,6 +32,8 @@ public class ProjectStepDefinitions {
     private static final String DESCRIPTION_FIELD = "description";
     private static final String ACTIVE_FIELD = "active";
     private static final String COMPLETED_FIELD = "completed";
+
+    private static final String NON_EXISTENT_PROJECT = "13927488";
 
     public static final Map<String, String> projects = new HashMap<>();
 
@@ -74,17 +78,17 @@ public class ProjectStepDefinitions {
     @When("^I add a project with title \"([^\"]*)\" and \"([^\"]*)\" as description and \"([^\"]*)\" active status and \"([^\"]*)\" completed status$")
     public void iCreateAProject(String arg0, String arg1, String arg2, String arg3) throws Throwable {
 
-        final HashMap<String, Object> givenBody = new HashMap<>();
+        final HashMap<String, Object> jsonBody = new HashMap<>();
         // Create project
-        givenBody.put(TITLE_FIELD, arg0);
-        givenBody.put(DESCRIPTION_FIELD, arg1);
-        givenBody.put(ACTIVE_FIELD, Boolean.parseBoolean(arg2));
-        givenBody.put(COMPLETED_FIELD, Boolean.parseBoolean(arg3));
+        jsonBody.put(TITLE_FIELD, arg0);
+        jsonBody.put(DESCRIPTION_FIELD, arg1);
+        jsonBody.put(ACTIVE_FIELD, Boolean.parseBoolean(arg2));
+        jsonBody.put(COMPLETED_FIELD, Boolean.parseBoolean(arg3));
 
 
         AppRunningStepDefinition.lastResponse.addFirst(
                 given().
-                        body(givenBody).
+                        body(jsonBody).
                         when().
                         post("/projects").
                         then().
@@ -148,16 +152,16 @@ public class ProjectStepDefinitions {
     @When("I add a a project with title \"([^\"]*)\" and \"([^\"]*)\" active status and \"([^\"]*)\" completed status")
     public void iCreateAProjectWithNoDescription(String arg0, String arg1, String arg2) throws Throwable {
 
-        final HashMap<String, Object> givenBody = new HashMap<>();
+        final HashMap<String, Object> jsonBody = new HashMap<>();
         // Create project
-        givenBody.put(TITLE_FIELD, arg0);
-        givenBody.put(ACTIVE_FIELD, arg1);
-        givenBody.put(COMPLETED_FIELD, arg1);
+        jsonBody.put(TITLE_FIELD, arg0);
+        jsonBody.put(ACTIVE_FIELD, arg1);
+        jsonBody.put(COMPLETED_FIELD, arg1);
 
 
         AppRunningStepDefinition.lastResponse.addFirst(
                 given().
-                        body(givenBody).
+                        body(jsonBody).
                         when().
                         post("projects").
                         then().
@@ -216,6 +220,125 @@ public class ProjectStepDefinitions {
         );
     }
 
+    @Given("^Existing projects do not have any tasks$")
+    public void existingProjectsDoNotHaveAnyTasks() throws Throwable {
+        for(Map.Entry<String, String> entry : projects.entrySet()){
+            List<Map<String, Object>> tasks =
+                    given().
+                            pathParam(ID_FIELD, entry.getValue()).
+                            when().
+                            get(PROJECT_TASKS).
+                            then().
+                            statusCode(HttpStatus.SC_OK).
+                            contentType(ContentType.JSON).
+                            extract().
+                            body().
+                            jsonPath().
+                            getList("todos");
 
+            assertEquals(0, tasks.size());
+        }
+    }
+
+    @When("^I create a task \"([^\"]*)\" with \"([^\"]*)\" description for existing project \"([^\"]*)\"$")
+    public void createTaskWithDescriptionForExistingProject(String taskTitle, String taskDescription, String projectTitle) {
+        String projectId = projects.get(projectTitle);
+
+        final HashMap<String, Object> jsonBody = new HashMap<>();
+        jsonBody.put(TITLE_FIELD, taskTitle);
+        jsonBody.put(DESCRIPTION_FIELD, taskDescription);
+
+        AppRunningStepDefinition.lastResponse.addFirst(
+            given().pathParam("id", projectId)
+                    .body(jsonBody)
+                    .when().post(PROJECT_TASKS)
+                    .then()
+                    .contentType(ContentType.JSON)
+                    .statusCode(HttpStatus.SC_CREATED)
+                .extract()
+        );
+    }
+
+    @And("^\"([^\"]*)\" project should have \"([^\"]*)\" task$")
+    public void projectShouldHaveTask(String projectTitle, String taskTitle) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        ;
+        String projectId = projects.get(projectTitle);
+        List<Map<String, Object>> projectTasks =
+                given().pathParam(ID_FIELD, projectId).
+                        when().
+                        get(PROJECT_TASKS).
+                        then().
+                        statusCode(HttpStatus.SC_OK).
+                        contentType(ContentType.JSON).
+                        extract().
+                        body().
+                        jsonPath().
+                        getList("todos");
+
+        assertTrue(projectTasks.stream().anyMatch(
+                task -> task.get("title").equals(taskTitle)
+                )
+        );
+    }
+
+    @When("^I create a task \"([^\"]*)\" without providing task description for existing project \"([^\"]*)\"$")
+    public void createTaskWithoutDescriptionForExistingProject(String taskTitle, String projectTitle) {
+        String projectId = projects.get(projectTitle);
+
+        final HashMap<String, Object> jsonBody = new HashMap<>();
+        jsonBody.put(TITLE_FIELD, taskTitle);
+
+        AppRunningStepDefinition.lastResponse.addFirst(
+                given().pathParam("id", projectId)
+                        .body(jsonBody)
+                        .when().post(PROJECT_TASKS)
+                        .then()
+                        .contentType(ContentType.JSON)
+                        .statusCode(HttpStatus.SC_CREATED)
+                        .extract()
+        );
+    }
+
+    @When("^I create a task \"([^\"]*)\" with \"([^\"]*)\" for a non-existing project \"([^\"]*)\"$")
+    public void createTaskWithDescriptionForNonExistingProject(String taskTitle, String taskDescription, String projectTitle){
+
+        final HashMap<String, Object> jsonBody = new HashMap<>();
+        jsonBody.put(TITLE_FIELD, taskTitle);
+        jsonBody.put(DESCRIPTION_FIELD, taskDescription);
+
+        AppRunningStepDefinition.lastResponse.addFirst(
+                given().pathParam("id", NON_EXISTENT_PROJECT)
+                        .body(jsonBody)
+                        .when().post(PROJECT_TASKS)
+                        .then()
+                        .contentType(ContentType.JSON)
+                        .statusCode(HttpStatus.SC_NOT_FOUND)
+                        .extract()
+        );
+    }
+
+    @And("^\"([^\"]*)\" task should not exist in the system for \"([^\"]*)\"$")
+    public void taskShouldNotExistInSystem(String taskTitle, String projectTitle){
+        // Write code here that turns the phrase above into concrete actions
+        ;
+        List<Map<String, Object>> tasks =
+                given().
+                        when().
+                        get("/todos").
+                        then().
+                        statusCode(HttpStatus.SC_OK).
+                        contentType(ContentType.JSON).
+                        extract().
+                        body().
+                        jsonPath().
+                        getList("todos");
+
+        assertTrue(tasks.stream().noneMatch(
+                task -> task.get("title").equals(taskTitle)
+                )
+        );
+
+    }
 }
 

@@ -22,7 +22,7 @@ Feature: Create Project
     | Hackathon       | Plans for Hackathon       | true    | true      |
     | Interview       | Preparation for Interview | false   | false     |
 
-  Scenario Outline: Outline: The user successfully adds a new project with title and no description (Alternate Flow)
+  Scenario Outline: The user successfully adds a new project with title and no description (Alternate Flow)
     When I add a a project with title "<project_title>" and "<active>" active status and "<completed>" completed status
     Then I should receive a confirmation that my operation was successful
     And Project with title "<project_title>" should exist
@@ -38,9 +38,9 @@ Feature: Create Project
 
 
   Scenario Outline: The user tries to add a project with an invalid active status (Error Flow)
-    When  I add a project with title "<project_title>" and "<description>" as description and "<active>" active status and "<completed>" completed status
-    Then  I should receive an error informing me that the passed information was invalid
-    And   Project "<project_title>" should not exist in the system
+    When I add a project with title "<project_title>" and "<description>" as description and "<active>" active status and "<completed>" completed status
+    Then I should receive an error informing me that the passed information was invalid
+    And Project "<project_title>" should not exist in the system
 
     Examples:
       | project_title   | description       | active  | completed |
