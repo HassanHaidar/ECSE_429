@@ -3,7 +3,7 @@ Feature: Create Project
 
   Background:
   Given The application is running
-  And Projects exist:
+  And Following projects exist:
     | project_title  | description | active | completed |
     | Vancouver Trip |             | false  | false     |
     | Camping        |             | false  | false     |

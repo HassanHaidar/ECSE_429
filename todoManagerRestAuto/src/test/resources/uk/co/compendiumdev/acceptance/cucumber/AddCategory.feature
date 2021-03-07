@@ -29,7 +29,7 @@ Feature: Create new Category
       | Work       |
       | University |
 
-  Scenario Outline: The user attempts to change the category without a title (Error Flow)
+  Scenario Outline: The user attempts to add a category without a title (Error Flow)
     When I add a category with only a description "<description>"
     Then I should receive an error informing me that the passed information was invalid
 
