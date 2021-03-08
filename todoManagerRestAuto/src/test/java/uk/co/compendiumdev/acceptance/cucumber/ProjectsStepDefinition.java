@@ -653,4 +653,106 @@ public class ProjectsStepDefinition {
                         .extract()
         );
     }
+
+    @And("^project to tasks exist:$")
+    public void projectToTasksExist(DataTable table) {
+        List<DataTableRow> rows = table.getGherkinRows();
+
+        String projectId = "";
+
+        for (int i = 1; i < rows.size(); i++) {
+            List<String> cells = rows.get(i).getCells();
+
+            String projectTitle = cells.get(0);
+
+            projectId = projects.get(projectTitle);
+
+            String taskTitle = cells.get(1);
+
+            final HashMap<String, Object> givenBody = new HashMap<>();
+            givenBody.put(TITLE_FIELD, taskTitle);
+
+            given().
+                    pathParam(ID_FIELD, projectId).
+                    body(givenBody).
+                    when().
+                    post(PROJECT_TASKS).
+                    then().
+                    contentType(ContentType.JSON).
+                    statusCode(HttpStatus.SC_CREATED).
+                    body(
+                            TITLE_FIELD, equalTo(taskTitle)
+                    ).
+                    extract();
+        }
+    }
+
+    @When("^I remove a project with title \"([^\"]*)\"$")
+    public void iRemoveAProjectWithTitle(String arg0) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        String projectId = projects.get(arg0);
+        AppRunningStepDefinition.lastResponse.addFirst(
+            given().
+                    pathParam(ID_FIELD, projectId).
+                    when().
+                    delete("/projects/{id}").
+                    then().
+                    statusCode(HttpStatus.SC_OK).
+                    contentType(ContentType.JSON).extract()
+        );
+    }
+
+    @And("^Project \"([^\"]*)\" should not show$")
+    public void projectShouldNotShow(String arg0) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        List<Map<String, Object>> projects =
+                given().
+                        when().
+                        get("/projects").
+                        then().
+                        statusCode(HttpStatus.SC_OK).
+                        contentType(ContentType.JSON).
+                        extract().
+                        body().
+                        jsonPath().
+                        getList("projects");
+
+        assertTrue(projects.stream().noneMatch(
+                project -> project.get(TITLE_FIELD).equals(arg0)
+                )
+        );
+    }
+
+    @When("^I remove a non-existant project with title \"([^\"]*)\"$")
+    public void iRemoveANonExistantProjectWithTitle(String arg0) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        AppRunningStepDefinition.lastResponse.addFirst(
+                given().
+                        pathParam(ID_FIELD, NON_EXISTENT_PROJECT).
+                        when().
+                        delete("/projects/{id}").
+                        then().
+                        statusCode(HttpStatus.SC_NOT_FOUND).
+                        contentType(ContentType.JSON).extract()
+        );
+    }
+
+    @And("^Task \"([^\"]*)\" exists for project \"([^\"]*)\" should not show$")
+    public void taskExistsForProjectShouldNotShow(String arg0, String arg1) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        List<Map<String, Object>> tasks =
+                given().
+                        when().
+                        get("/todos").
+                        then().
+                        statusCode(HttpStatus.SC_OK).
+                        contentType(ContentType.JSON).
+                        extract().
+                        body().
+                        jsonPath().
+                        getList("todos");
+
+        assertTrue(tasks.stream().allMatch(task -> task.get("project") == null ));
+
+    }
 }
