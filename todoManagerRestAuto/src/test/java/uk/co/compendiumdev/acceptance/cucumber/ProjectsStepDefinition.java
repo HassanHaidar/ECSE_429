@@ -1,6 +1,7 @@
 package uk.co.compendiumdev.acceptance.cucumber;
 
 import cucumber.api.DataTable;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
@@ -87,7 +88,6 @@ public class ProjectsStepDefinition {
 
     @And("^The project \"([^\"]*)\" exists$")
     public void theProjectExists(String arg0) throws Throwable {
-
         List<Map<String, Object>> projects =
                 given().
                         pathParam(ID, ProjectsStepDefinition.projects.get(arg0)).
@@ -136,7 +136,6 @@ public class ProjectsStepDefinition {
         jsonBody.put(DESCRIPTION_FIELD, arg1);
         jsonBody.put(ACTIVE_FIELD, Boolean.parseBoolean(arg2));
         jsonBody.put(COMPLETED_FIELD, Boolean.parseBoolean(arg3));
-
 
         AppRunningStepDefinition.lastResponse.addFirst(
                 given().
@@ -532,6 +531,126 @@ public class ProjectsStepDefinition {
         assertTrue(tasks.stream().noneMatch(
                 task -> task.get("title").equals(categoryTitle)
                 )
+        );
+    }
+
+    @When("^I change the project title from \"([^\"]*)\" to \"([^\"]*)\"$")
+    public void iChangeTheProjectTitleFromTo(String arg0, String arg1) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        String projectId = projects.get(arg0);
+
+        final HashMap<String, Object> jsonBody = new HashMap<>();
+        // Create project
+        jsonBody.put(TITLE_FIELD, arg1);
+
+        AppRunningStepDefinition.lastResponse.addFirst(
+                given().
+                        pathParam(ID_FIELD, projectId).
+                        body(jsonBody).
+                        when().
+                        put("/projects/{id}").
+                        then().
+                        contentType(ContentType.JSON).
+                        statusCode(HttpStatus.SC_OK).
+                        body(
+                                TITLE_FIELD, equalTo(arg1)
+                        ).
+                        extract()
+        );
+
+        projects.remove(projectId);
+        projects.put(arg1, projectId);
+    }
+
+    @And("^Project \"([^\"]*)\" will have \"([^\"]*)\"$")
+    public void projectWillHaveNewTitle(String arg0, String arg1) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        String projectId = projects.get(arg1);
+
+        Map<String, Object> project =
+                (Map<String, Object>) given().
+                        pathParam(ID_FIELD, projectId).
+                        when().
+                        get("/projects/{id}").
+                        then().
+                        statusCode(HttpStatus.SC_OK).
+                        contentType(ContentType.JSON).
+                        extract().
+                        body().
+                        jsonPath().
+                        getList("projects").
+                        get(0);
+
+        assertEquals(arg1, project.get(TITLE_FIELD));
+    }
+
+    @When("^I change the description of \"([^\"]*)\" to \"([^\"]*)\"$")
+    public void iChangeTheDescriptionOfTo(String arg0, String arg1) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        // Write code here that turns the phrase above into concrete actions
+        String projectId = projects.get(arg0);
+
+        final HashMap<String, Object> jsonBody = new HashMap<>();
+        // Create project
+        jsonBody.put(DESCRIPTION_FIELD, arg1);
+
+        AppRunningStepDefinition.lastResponse.addFirst(
+                given().
+                        pathParam(ID_FIELD, projectId).
+                        body(jsonBody).
+                        when().
+                        put("/projects/{id}").
+                        then().
+                        contentType(ContentType.JSON).
+                        statusCode(HttpStatus.SC_OK).
+                        body(
+                                DESCRIPTION_FIELD, equalTo(arg1)
+                        ).
+                        extract()
+        );
+
+        projects.remove(projectId);
+        projects.put(arg0, projectId);
+    }
+
+    @And("^Project with title \"([^\"]*)\" should have description \"([^\"]*)\"$")
+    public void projectWithTitleShouldHaveDescription(String arg0, String arg1) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        String projectId = projects.get(arg0);
+
+        Map<String, Object> project =
+                (Map<String, Object>) given().
+                        pathParam(ID_FIELD, projectId).
+                        when().
+                        get("/projects/{id}").
+                        then().
+                        statusCode(HttpStatus.SC_OK).
+                        contentType(ContentType.JSON).
+                        extract().
+                        body().
+                        jsonPath().
+                        getList("projects").
+                        get(0);
+
+        assertEquals(arg1, project.get(DESCRIPTION_FIELD));
+    }
+
+    @When("^I add edit the title \"([^\"]*)\" of a project that does not exist$")
+    public void iAddEditTheTitleOfAProjectThatDoesNotExist(String arg0) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+
+        final HashMap<String, Object> jsonBody = new HashMap<>();
+        // Create project
+        jsonBody.put(DESCRIPTION_FIELD, "Random description");
+
+        AppRunningStepDefinition.lastResponse.addFirst(
+                given().pathParam("id", NON_EXISTENT_PROJECT)
+                        .body(jsonBody)
+                        .when().put("/projects/{id}")
+                        .then()
+                        .contentType(ContentType.JSON)
+                        .statusCode(HttpStatus.SC_NOT_FOUND)
+                        .extract()
         );
     }
 }
