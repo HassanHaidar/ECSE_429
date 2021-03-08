@@ -487,6 +487,7 @@ public class CategoriesStepDefinitions {
                         .then()
                         .extract()
         );
+        CategoriesStepDefinitions.categories.remove(arg0);
     }
 
     @And("^Category \"([^\"]*)\" should not show$")
@@ -506,11 +507,11 @@ public class CategoriesStepDefinitions {
             String project = cells.get(1);
 
             final HashMap<String, Object> givenBody = new HashMap<>();
-            givenBody.put(ID, CategoriesStepDefinitions.categories.get(project));
+            givenBody.put(ID, CategoriesStepDefinitions.categories.get(category));
 
             AppRunningStepDefinition.lastResponse.addFirst(
                     given().
-                            pathParam(ID, ProjectsStepDefinition.projects.getOrDefault(category, "-1")).
+                            pathParam(ID, ProjectsStepDefinition.projects.getOrDefault(project, "-1")).
                             body(givenBody).
                             when().
                             post(PROJECT_TO_CATEGORY_PATH)
@@ -521,8 +522,20 @@ public class CategoriesStepDefinitions {
 
     @And("^Category \"([^\"]*)\" for project \"([^\"]*)\" should not show$")
     public void categoryForProjectShouldNotShow(String arg0, String arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        List<Map<String, Object>> cats =
+                given().
+                        pathParam(ID, ProjectsStepDefinition.projects.get(arg1)).
+                        when().
+                        get(PROJECT_TO_CATEGORY_PATH).
+                        then().
+                        statusCode(HttpStatus.SC_OK).
+                        contentType(ContentType.JSON).
+                        extract().
+                        body().
+                        jsonPath().
+                        getList("categories");
+
+        Assertions.assertTrue(cats.isEmpty());
     }
 
     @Given("^The category \"([^\"]*)\" related to the project \"([^\"]*)\" exists$")
@@ -538,18 +551,19 @@ public class CategoriesStepDefinitions {
                         extract().
                         body().
                         jsonPath().
-                        getList("catgeories");
+                        getList("categories");
 
         Assertions.assertTrue(projects.stream().allMatch(object -> object.get("title").equals(arg0)));
     }
 
     @When("^I remove a category with title\"([^\"]*)\" related to the project \"([^\"]*)\"$")
     public void iRemoveACategoryWithTitleRelatedToTheProject(String arg0, String arg1) throws Throwable {
+        String cat = CategoriesStepDefinitions.categories.get(arg0);
+        String project = ProjectsStepDefinition.projects.get(arg1);
         AppRunningStepDefinition.lastResponse.addFirst(
                 given().
-                        pathParam(ID, CategoriesStepDefinitions.categories.getOrDefault(arg0, "-1")).
                         when().
-                        delete(SPECIFIC_CATEGORIES_PATH)
+                        delete("/projects/"+project+"/categories/"+cat)
                         .then()
                         .extract()
         );

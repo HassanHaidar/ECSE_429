@@ -1,5 +1,6 @@
 package uk.co.compendiumdev.acceptance.cucumber;
 
+import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
@@ -24,6 +25,13 @@ public class AppRunningStepDefinition {
         post(CLEAR_PATH);
 
         CategoriesStepDefinitions.categories.clear();
+        ProjectsStepDefinition.projects.clear();
+        TodosStepDefinitions.todos.clear();
 
+    }
+
+    @After
+    public void clearEnv() {
+        post(CLEAR_PATH);
     }
 }

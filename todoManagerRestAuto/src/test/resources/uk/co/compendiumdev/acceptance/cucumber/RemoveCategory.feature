@@ -38,10 +38,10 @@ Feature: Remove a Category
     And Category "<cat_title>" for project "<pname>" should not show
 
     Examples:
-      | cat_title  |
-      | Home       |
-      | Work       |
-      | University |
+      | cat_title   | pname         |
+      | Home        | House remodel   |
+      | Personal    | Surprise party  |
+      | University  | Lab             |
 
   Scenario Outline: The user attempts to delete a category that does not exist (Error Flow)
     Given The category "<cat_title>" does not exist
