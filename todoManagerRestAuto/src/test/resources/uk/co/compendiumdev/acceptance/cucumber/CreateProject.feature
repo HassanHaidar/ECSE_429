@@ -23,7 +23,7 @@ Feature: Create Project
     | Interview       | Preparation for Interview | false   | false     |
 
   Scenario Outline: The user successfully adds a new project with title and no description (Alternate Flow)
-    When I add a a project with title "<project_title>" and "<active>" active status and "<completed>" completed status
+    When I add a project with title "<project_title>" and "<active>" active status and "<completed>" completed status
     Then I should receive a confirmation that my operation was successful
     And Project with title "<project_title>" should exist
     And The project should have active status "<active>" and completed status "<completed>"
@@ -38,16 +38,10 @@ Feature: Create Project
 
 
   Scenario Outline: The user tries to add a project with an invalid active status (Error Flow)
-    When I add a project with title "<project_title>" and "<description>" as description and "<active>" active status and "<completed>" completed status
+    When I add a project with title "<project_title>" and "<description>" as description and wrong "<active>" active status and "<completed>" completed status
     Then I should receive an error informing me that the passed information was invalid
     And Project "<project_title>" should not exist in the system
 
     Examples:
       | project_title   | description       | active  | completed |
       | Faulty Project  | Plans for Toronto | almost  | false     |
-
-
-
-
-
-

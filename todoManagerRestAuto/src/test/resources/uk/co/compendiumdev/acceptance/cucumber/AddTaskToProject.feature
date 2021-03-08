@@ -3,7 +3,7 @@ Feature: Add Tasks to A Project
 
   Background:
   Given The application is running
-  And Projects exist:
+  And Following projects exist:
     | project_title     | description | active | completed |
     | Toronto Trip      |             | false  | false     |
     | Vancouver Trip    |             | false  | false     |

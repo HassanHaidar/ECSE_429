@@ -47,56 +47,6 @@ public class ProjectsStepDefinition {
 
     public static final Map<String, String> projects = new HashMap<>();
 
-    @And("^Projects exist:$")
-    public void projectsExist(DataTable table) {
-
-        List<DataTableRow> rows = table.getGherkinRows();
-
-        for(int i = 1; i<rows.size() ; i++) {
-            List<String> cells = rows.get(i).getCells();
-
-            String project = cells.get(0);
-            String status = cells.get(1);
-            String completed = cells.get(2);
-            String desc = cells.get(3);
-
-            final HashMap<String, Object> givenBody = new HashMap<>();
-            givenBody.put(TITLE, project);
-
-            if (status.equals("true")) {
-                givenBody.put(STATUS, true);
-            } else if (status.equals("false")) {
-                givenBody.put(STATUS, false);
-            }
-
-            if (completed.equals("true")) {
-                givenBody.put(COMPLETED, true);
-            } else if (completed.equals("false")) {
-                givenBody.put(COMPLETED, false);
-            }
-
-            givenBody.put(DESC, desc);
-
-            String id = given().
-                    body(givenBody).
-                    when().
-                    post(ALL_PROJECTS_PATH).
-                    then().
-                    contentType(ContentType.JSON).
-                    statusCode(HttpStatus.SC_CREATED).
-                    body(
-                            TITLE, equalTo(project),
-                            COMPLETED, equalTo(completed),
-                            STATUS, equalTo(status),
-                            DESC, equalTo(desc)
-                    ).
-                    extract().
-                    path(ID);
-
-            projects.put(project, id);
-        }
-    }
-
     @And("^Following projects exist:$")
     public void ProjectsExist(DataTable table) {
 
@@ -209,6 +159,30 @@ public class ProjectsStepDefinition {
         //throw new PendingException();
     }
 
+    @When("^I add a project with title \"([^\"]*)\" and \"([^\"]*)\" as description and wrong \"([^\"]*)\" active status and \"([^\"]*)\" completed status$")
+    public void iCreateAProjectWithInvalidInput(String arg0, String arg1, String arg2, String arg3) throws Throwable {
+
+        final HashMap<String, Object> jsonBody = new HashMap<>();
+        // Create project
+        jsonBody.put(TITLE_FIELD, arg0);
+        jsonBody.put(DESCRIPTION_FIELD, arg1);
+        jsonBody.put(ACTIVE_FIELD, arg2);
+        jsonBody.put(COMPLETED_FIELD, arg3);
+
+
+        AppRunningStepDefinition.lastResponse.addFirst(
+                given().
+                        body(jsonBody).
+                        when().
+                        post("/projects").
+                        then().
+                        contentType(ContentType.JSON).
+                        statusCode(HttpStatus.SC_BAD_REQUEST).
+                        extract()
+        );
+    }
+
+
     @And("^Project with title \"([^\"]*)\" with description \"([^\"]*)\" should exist$")
     public void theProjectWithTitleAndDescriptionShouldExist(String arg0, String arg1) throws Throwable {
         List<Map<String, Object>> projects =
@@ -251,27 +225,26 @@ public class ProjectsStepDefinition {
         );
     }
 
-    @When("I add a a project with title \"([^\"]*)\" and \"([^\"]*)\" active status and \"([^\"]*)\" completed status")
+    @When("I add a project with title \"([^\"]*)\" and \"([^\"]*)\" active status and \"([^\"]*)\" completed status")
     public void iCreateAProjectWithNoDescription(String arg0, String arg1, String arg2) throws Throwable {
 
         final HashMap<String, Object> jsonBody = new HashMap<>();
         // Create project
         jsonBody.put(TITLE_FIELD, arg0);
-        jsonBody.put(ACTIVE_FIELD, arg1);
-        jsonBody.put(COMPLETED_FIELD, arg1);
+        jsonBody.put(ACTIVE_FIELD, Boolean.parseBoolean(arg1));
+        jsonBody.put(COMPLETED_FIELD, Boolean.parseBoolean(arg2));
 
 
         AppRunningStepDefinition.lastResponse.addFirst(
                 given().
                         body(jsonBody).
                         when().
-                        post("projects").
+                        post("/projects").
                         then().
                         contentType(ContentType.JSON).
                         statusCode(HttpStatus.SC_CREATED).
                         body(
-                                TITLE_FIELD, equalTo(arg0),
-                                DESCRIPTION_FIELD, equalTo(arg1)
+                                TITLE_FIELD, equalTo(arg0)
                         ).
                         extract()
         );
@@ -279,11 +252,10 @@ public class ProjectsStepDefinition {
         String projectId = AppRunningStepDefinition.lastResponse.getFirst().path(ID_FIELD);
 
         projects.put(arg0, projectId);
-        //throw new PendingException();
     }
 
     @And("^Project with title \"([^\"]*)\" should exist$")
-    public void theProjectWithTitleShouldExist(String arg0, String arg1) throws Throwable {
+    public void theProjectWithTitleShouldExist(String arg0) throws Throwable {
         List<Map<String, Object>> projects =
                 given().
                         when().
