@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         plugin = {"pretty"},
         features = {"src/test/resources"}
+        //glue = "uk.co.compendiumdev.acceptance.features"
 )
-public class CucumberTest {
+public class CucumberTests {
 }
