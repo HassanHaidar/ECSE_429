@@ -692,13 +692,13 @@ public class ProjectsStepDefinition {
         // Write code here that turns the phrase above into concrete actions
         String projectId = projects.get(arg0);
         AppRunningStepDefinition.lastResponse.addFirst(
-            given().
-                    pathParam(ID_FIELD, projectId).
-                    when().
-                    delete("/projects/{id}").
-                    then().
-                    statusCode(HttpStatus.SC_OK).
-                    contentType(ContentType.JSON).extract()
+                given().
+                        pathParam(ID_FIELD, projectId).
+                        when().
+                        delete("/projects/{id}").
+                        then().
+                        statusCode(HttpStatus.SC_OK).
+                        contentType(ContentType.JSON).extract()
         );
     }
 
@@ -755,4 +755,6 @@ public class ProjectsStepDefinition {
         assertTrue(tasks.stream().allMatch(task -> task.get("project") == null ));
 
     }
+
+
 }
