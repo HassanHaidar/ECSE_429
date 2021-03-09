@@ -1,5 +1,5 @@
 Feature: Create new Category
-  As a user I want to create new categories so that I can organize my projects better.
+  As a user I want to create new categories to organize my projects better.
 
   Background:
     Given The application is running

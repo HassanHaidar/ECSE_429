@@ -1,5 +1,5 @@
 Feature: Remove a Project
-  As a user I want to remove projects that are complete or that are cancelled
+  As a user I want to remove projects to mark that they are finished.
 
   Background:
     Given The application is running

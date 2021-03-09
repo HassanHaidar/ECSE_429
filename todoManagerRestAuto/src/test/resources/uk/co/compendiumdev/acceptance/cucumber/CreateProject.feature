@@ -1,5 +1,5 @@
 Feature: Create Project
-  As a user, I want to create a project for my trip to Toronto, so I can plan my activities there.
+  As a user I want to create a project to plan my activities.
 
   Background:
   Given The application is running

@@ -1,5 +1,5 @@
 Feature: Filter todos by category
-  As a user I want to order todos by category so that I can see more clearly which Todos belong to which category.
+  As a user I want to order todos by category to see more clearly which Todos belong to which category.
 
   Background:
     Given The application is running

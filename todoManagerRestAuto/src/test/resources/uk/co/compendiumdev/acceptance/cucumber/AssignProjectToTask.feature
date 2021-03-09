@@ -1,5 +1,5 @@
 Feature: Assign Project to Task
-  As a user, I want to be able to assign projects directly to my tasks so I can keep better organized
+  As a user I want to be able to assign projects directly to my tasks to track which projects belong to a task.
 
   Background:
   Given The application is running

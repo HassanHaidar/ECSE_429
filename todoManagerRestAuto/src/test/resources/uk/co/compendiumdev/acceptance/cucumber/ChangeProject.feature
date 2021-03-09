@@ -1,5 +1,5 @@
 Feature: Create Project
-  As a user, I want to edit my existing projects
+  As a user I want to edit my existing projects to make modifications to a project I already created.
 
   Background:
     Given The application is running

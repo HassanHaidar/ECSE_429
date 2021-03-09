@@ -1,5 +1,5 @@
 Feature: Remove a Category
-  As a user I want to remove a category so that I can delete any categories that I do not need anymore.
+  As a user I want to remove a category to delete any categories that I do not need anymore.
 
   Background:
     Given The application is running
@@ -8,11 +8,11 @@ Feature: Remove a Category
       | Home       | home chores     |
       | Work       | work related    |
       | University | university work |
-    And Projects exist:
-      | p_title        | completed  | active | p_desc                |
-      | House remodel  | false      | true   | water interior plants |
-      | Lab            | true       | false  | asssignment 2         |
-      | Surprise party | false      | false  | Quiz 1                |
+    And Following projects exist:
+      | p_title        | p_desc                | active | completed |
+      | House remodel  | water interior plants | true   | false     |
+      | Lab            | asssignment 2         | false  | true      |
+      | Surprise party |  Quiz 1               | false  | false     |
     And categories to a project exist:
       | cat_title   | p_title         |
       | Home        | House remodel   |

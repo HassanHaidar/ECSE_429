@@ -1,5 +1,5 @@
 Feature: Mark a todo as complete
-  As a user I want to change a todo in case I made a mistake when initially creating it
+  As a user I want to mark a todo as complete to note that I completed a task.
 
   Background:
     Given The application is running

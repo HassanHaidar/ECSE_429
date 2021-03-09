@@ -45,17 +45,12 @@ public class TodosStepDefinitions {
             List<String> cells = rows.get(i).getCells();
 
             String todo = cells.get(0);
-            String status = cells.get(1);
-            String desc = cells.get(2);
+            String desc = cells.get(1);
 
             final HashMap<String, Object> givenBody = new HashMap<>();
             givenBody.put(TITLE, todo);
 
-            if (status.equals("true")) {
-                givenBody.put(STATUS, true);
-            } else if (status.equals("false")) {
-                givenBody.put(STATUS, false);
-            }
+
             givenBody.put(DESC, desc);
 
             String id = given().
@@ -67,7 +62,6 @@ public class TodosStepDefinitions {
                     statusCode(HttpStatus.SC_CREATED).
                     body(
                             TITLE, equalTo(todo),
-                            STATUS, equalTo(status),
                             DESC, equalTo(desc)
                     ).
                     extract().
@@ -264,7 +258,7 @@ public class TodosStepDefinitions {
     @When("^I remove a todo with title \"([^\"]*)\"$")
     public void iRemoveATodoWithTitle(String arg0) throws Throwable {
         String todoId =todos.get(arg0);
-        System.out.println(todoId);
+
         AppRunningStepDefinition.lastResponse.addFirst(
                 given().
                         pathParam(ID, todoId).
@@ -324,8 +318,7 @@ public class TodosStepDefinitions {
                         extract().
                         body().
                         jsonPath().getList("todos");
-        System.out.println(tasks.size());
-        System.out.println(tasks.toString());
+
         assertTrue(tasks.size() == 0 );
     }
 
@@ -342,7 +335,7 @@ public class TodosStepDefinitions {
                         put(SPECIFIC_TODOS_PATH).
                         then().
                         contentType(ContentType.JSON).
-                        statusCode(HttpStatus.SC_BAD_REQUEST).
+                        statusCode(HttpStatus.SC_NOT_FOUND).
                         extract()
         );
     }

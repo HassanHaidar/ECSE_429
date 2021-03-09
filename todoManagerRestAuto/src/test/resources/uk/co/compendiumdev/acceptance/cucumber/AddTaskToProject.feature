@@ -1,5 +1,5 @@
-Feature: Add Tasks to A Project
-  As a user, I want to plan my activities for my trip to Toronto by creating tasks
+Feature: Add Tasks to a Project
+  As a user I want to add tasks to my projects to track all tasks related to a specific project.
 
   Background:
   Given The application is running

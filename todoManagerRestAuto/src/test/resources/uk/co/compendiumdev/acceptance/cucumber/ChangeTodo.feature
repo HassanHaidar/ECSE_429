@@ -1,5 +1,5 @@
 Feature: Change a todo
-  As a user I want to change a todo in case I made a mistake when initially creating it
+  As a user I want to change a todo to fix a mistake when initially creating it.
 
   Background:
     Given The application is running

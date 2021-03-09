@@ -1,5 +1,5 @@
 Feature: Add Tasks to A Project
-  As a user, I want to separate my projects by category
+  As a user I want to separate my projects by category to organize them in a clear way.
 
   Background:
     Given The application is running

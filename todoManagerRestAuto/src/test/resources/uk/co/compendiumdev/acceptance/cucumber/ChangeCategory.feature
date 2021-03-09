@@ -1,5 +1,5 @@
 Feature: Change a Category
-  As a user I want to change a category so that I can modify it in case I made a mistake or want to refine its
+  As a user I want to change a category to modify it in case I made a mistake or want to refine its.
   description.
 
   Background:

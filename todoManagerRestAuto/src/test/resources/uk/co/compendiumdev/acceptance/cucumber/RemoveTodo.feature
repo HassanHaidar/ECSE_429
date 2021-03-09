@@ -1,5 +1,5 @@
 Feature: Remove a todo
-  As a user I want to remove a todo so that I can delete any categories that I do not need anymore.
+  As a user I want to remove a todo to delete any todos that I do not need anymore.
 
   Background:
     Given The application is running

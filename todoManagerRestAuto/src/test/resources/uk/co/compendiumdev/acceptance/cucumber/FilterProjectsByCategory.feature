@@ -1,5 +1,5 @@
 Feature: Filter projects by category
-  As a user I want to order projects by category so that I can see more clearly which projects belong to which category.
+  As a user I want to order projects by category to see more clearly which projects belong to which category.
 
   Background:
     Given The application is running
@@ -9,11 +9,11 @@ Feature: Filter projects by category
       | Home        | home chores     |
       | Work        | work related    |
       | University  | university work |
-    And Projects exist:
-      | p_title        | completed  | active | p_desc                |
-      | House remodel  | false      | true   | water interior plants |
-      | Lab            | true       | false  | asssignment 2         |
-      | Surprise party | false      | false  | Quiz 1                |
+    And Following projects exist:
+      | p_title        | p_desc                | active | completed |
+      | House remodel  | water interior plants | true   | false     |
+      | Lab            | asssignment 2         | false  | true      |
+      | Surprise party |  Quiz 1               | false  | false     |
 
 
   Scenario Outline: The user successfully assigns a non existing project for the chosen category (Normal Flow)
