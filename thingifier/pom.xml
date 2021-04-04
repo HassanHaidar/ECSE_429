@@ -10,7 +10,7 @@
 
   <groupId>uk.co.compendiumdev</groupId>
   <artifactId>thingifier</artifactId>
-    <version>${thingifier.version}</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
   <name>thingifier</name>

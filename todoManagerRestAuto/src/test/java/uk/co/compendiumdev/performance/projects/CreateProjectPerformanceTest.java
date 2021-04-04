@@ -5,10 +5,7 @@ import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
-import org.junit.jupiter.api.Assumptions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import uk.co.compendiumdev.Environment;
 
 import java.util.HashMap;
@@ -39,6 +36,38 @@ public class CreateProjectPerformanceTest {
 
     private static long globalStartTime;
 
+    private static final String PROJECT_CATEGORIES = "projects/{id}/categories";
+    private static final String PROJECT_CATEGORIES_ID = "projects/{id}/categories/{categoryId}";
+
+    private static final String PROJECT_TASKS = "projects/{id}/tasks";
+    private static final String PROJECT_TASKS_ID = "projects/{id}/tasks/{taskId}";
+
+    private static final String CATEGORY_TITLE = "cia deserunt mollita";
+    private static final String CATEGORY_DESCRIPTION = "dolore eu fugiat nua";
+
+    private static final String TODO_TITLE = "cia deserunt mollita";
+    private static final String TODO_DESCRIPTION = "dolore eu fugiat nua";
+
+    private static final String ID_FIELD = "id";
+    private static final String TITLE_FIELD = "title";
+    private static final String DESCRIPTION_FIELD = "description";
+    private static final String COMPLETED_FIELD = "completed";
+    private static final String ACTIVE_FIELD = "active";
+    private static final String DONE_FIELD = "doneStatus";
+
+    private static final String PROJECT_DESCRIPTION = "itation ullamco labo";
+    private static final String PROJECT_TITLE = "test project";
+
+    private static final String ERROR = "errorMessages";
+    private static final String BAD_REQUEST = "Could not find field: ";
+    private static final String NOT_FOUND = "Could not find any instances with ";
+    public static final String ERRONEOUS_FIELD = "erroneous_field";
+
+    private static int projectId = 0;
+    private static int categoryId = 0;
+    private static int taskId = 0;
+
+
 
     @BeforeAll
     public static void startTimer(){
@@ -47,65 +76,62 @@ public class CreateProjectPerformanceTest {
 
     @BeforeEach
     public void clearDataFromEnv(){
+        // avoid the use of Environment.getEnv("/todos") etc. to keep code a little clearer
         RestAssured.baseURI = Environment.getBaseUri();
-        if(RestAssured.baseURI == null) fail("To Do Manager isn't running!");
 
-        post(CLEAR_PATH);
+        when().post("/admin/data/thingifier")
+                .then().statusCode(200);
 
-        final JsonPath clearedData = when().get(ALL_PROJECTS_PATH)
+        final JsonPath clearedData = when().get("/projects")
                 .then().statusCode(200).extract().body().jsonPath();
 
-        final int projects = clearedData.getList(PROJECTS).size();
+        final int newNumberOfTodos = clearedData.getList("projects").size();
 
-        Assumptions.assumeTrue(projects == 0);
+        Assertions.assertEquals(0, newNumberOfTodos);
     }
 
     @Test
     public void createProjects() throws InterruptedException {
-        System.out.println("TestNum, Test Start Time (ms), action Time (ms), post Time(ms):");
-        for(int i = 1; i<= SAMPLES; i++){
-            createProject(i);
+        System.out.println("Sample Number, Global time (ms), transaction time (ms):");
+        for(int i = 1; i <= SAMPLES; i++){
+            postProject(i);
             Thread.sleep(SLEEP_TIME);
         }
     }
 
-    private static int createProject(int experimentNumber){
-        final HashMap<String, Object> givenBody = new HashMap<>();
-        givenBody.put(TITLE, TITLE_EXAMPLE);
-        givenBody.put(DESCRIPTION, DESCRIPTION_EXAMPLE);
-        givenBody.put(ACTIVE, true);
-        givenBody.put(COMPLETED, false);
+    // adapted post project helper method taken from the projects api test
+    public void postProject(int sampleNumber) {
+        final HashMap<String, Object> jsonBody = new HashMap<>();
+        jsonBody.put(TITLE_FIELD, PROJECT_TITLE);
+        jsonBody.put(ACTIVE_FIELD, true);
+        jsonBody.put(COMPLETED_FIELD, false);
 
-        long createStartTime = System.currentTimeMillis();
 
-        long postStartTime = System.currentTimeMillis();
+        // measure time of api transaction
+        // transaction start time
+        long transactionStartTime = System.currentTimeMillis();
 
-        Response r = given().
-                body(givenBody).
-                when().
-                post(ALL_PROJECTS_PATH)
+        // send api request
+        Response response = given().body(jsonBody)
+                .when().post("/projects")
                 .thenReturn();
-        long postTime = System.currentTimeMillis() - postStartTime;
 
-        String id  = r.then().contentType(ContentType.JSON)
+        // transaction end time
+        long transactionTime = System.currentTimeMillis() - transactionStartTime;
+
+        String responseId = response.then().contentType(ContentType.JSON)
                 .statusCode(HttpStatus.SC_CREATED)
-                .body(
-                        TITLE, equalTo(TITLE_EXAMPLE),
-                        DESCRIPTION, equalTo(DESCRIPTION_EXAMPLE),
-                        ACTIVE, equalTo(TRUE),
-                        COMPLETED, equalTo(FALSE)
-                )
+                .body(TITLE_FIELD, equalTo(PROJECT_TITLE),
+                        COMPLETED_FIELD, equalTo(String.valueOf(false)),
+                        ACTIVE_FIELD, equalTo(String.valueOf(true)))
                 .extract()
-                .path(ID);
-        long createTime = System.currentTimeMillis() - createStartTime;
+                .path("id");
+        projectId = Integer.parseInt(responseId);
+
         long globalTime = System.currentTimeMillis() - globalStartTime;
 
-        if(experimentNumber != -1) {
-            System.out.printf("%d,%d,%d,%d\n",
-                    experimentNumber, globalTime, createTime, postTime);
-        }
-
-        return Integer.parseInt(id);
+        System.out.printf("%d,%d,%d\n",
+                sampleNumber, globalTime, transactionTime);
     }
 
 }
