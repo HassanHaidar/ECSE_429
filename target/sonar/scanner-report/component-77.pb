@@ -1,0 +1,1 @@
+M 2javaXÍhrUthingifier/src/main/java/uk/co/compendiumdev/thingifier/api/response/ApiResponse.java

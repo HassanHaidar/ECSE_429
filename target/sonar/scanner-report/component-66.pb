@@ -1,0 +1,1 @@
+B 2javaX¢hrTercoremodel/src/main/java/uk/co/compendiumdev/thingifier/core/query/SimpleQuery.java

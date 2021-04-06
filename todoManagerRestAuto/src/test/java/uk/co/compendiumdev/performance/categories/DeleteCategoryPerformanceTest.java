@@ -11,7 +11,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uk.co.compendiumdev.Environment;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.equalTo;
@@ -35,6 +37,8 @@ public class DeleteCategoryPerformanceTest {
 
     private static long testStartTime;
 
+    List<Integer> categoryIds = new ArrayList<Integer>();
+
 
     @BeforeAll
     public static void startTimer(){
@@ -42,7 +46,7 @@ public class DeleteCategoryPerformanceTest {
     }
 
     @BeforeEach
-    public void clearDataFromEnv(){
+    public void clearDataFromEnv() throws InterruptedException {
         RestAssured.baseURI = Environment.getBaseUri();
         if(RestAssured.baseURI == null) fail("To Do Manager isn't running!");
 
@@ -54,13 +58,22 @@ public class DeleteCategoryPerformanceTest {
         final int categories = clearedData.getList(CATEGORIES).size();
 
         Assumptions.assumeTrue(categories == 0);
+
+        // populate
+        for(int i = 1; i<= SAMPLES; i++){
+            categoryIds.add(createCategory());
+            Thread.sleep(SLEEP_TIME);
+        }
+
     }
 
     @Test
-    public void createAndDeleteCategories() throws InterruptedException {
-        System.out.println("TestNum, Test Start Time (ms), action Time (ms), post Time(ms):");
-        for(int i = 1; i<= SAMPLES; i++){
-            createAndDeleteCategory(i);
+    public void deleteCategories() throws InterruptedException {
+        System.out.println("Sample Number, Global time (ms), transaction time (ms):");
+        int i = 0;
+        for(Integer id: categoryIds){
+            deleteCategory(i, id);
+            i++;
             Thread.sleep(SLEEP_TIME);
         }
     }
@@ -90,15 +103,13 @@ public class DeleteCategoryPerformanceTest {
         return Integer.parseInt(id);
     }
 
-    public void createAndDeleteCategory(int testNumber){
-        int id = createCategory();
+    public void deleteCategory(int testNumber, int categoryId){
 
-        long createStartTime = System.currentTimeMillis();
+        long globalTime = System.currentTimeMillis() - testStartTime;
 
         long postStartTime = System.currentTimeMillis();
-
         Response r = given().
-                pathParam(ID, id).
+                pathParam(ID, categoryId).
                 when().
                 delete(SPECIFIC_CATEGORIES_PATH)
                 .thenReturn();
@@ -109,12 +120,9 @@ public class DeleteCategoryPerformanceTest {
                 .contentType(ContentType.JSON)
                 .statusCode(HttpStatus.SC_OK);
 
-        long testTime = System.currentTimeMillis() - createStartTime;
-        long globalTime = System.currentTimeMillis() - testStartTime;
-
         if(testNumber != -1) {
-            System.out.printf("%d,%d,%d,%d\n",
-                    testNumber, globalTime, testTime, postTime);
+            System.out.printf("%d,%d,%d\n",
+                    testNumber, globalTime, postTime);
         }
     }
 

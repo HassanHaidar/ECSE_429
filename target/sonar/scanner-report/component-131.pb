@@ -1,0 +1,1 @@
+ƒ 2javaX¥hrPthingifier/src/main/java/uk/co/compendiumdev/thingifier/reporting/JsonThing.java

@@ -9,7 +9,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="thingifier" />
+    <orderEntry type="library" name="Maven: uk.co.compendiumdev:thingifier:1.5.5" level="project" />
     <orderEntry type="module" module-name="ercoremodel" />
     <orderEntry type="library" name="Maven: com.sparkjava:spark-core:2.8.0" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.25" level="project" />

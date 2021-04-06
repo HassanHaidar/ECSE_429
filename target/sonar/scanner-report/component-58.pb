@@ -1,0 +1,1 @@
+: 2javaX•hrbercoremodel/src/main/java/uk/co/compendiumdev/thingifier/core/domain/instances/InstanceFields.java

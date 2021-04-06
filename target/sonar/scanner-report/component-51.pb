@@ -1,0 +1,1 @@
+3 2javaX|hreercoremodel/src/main/java/uk/co/compendiumdev/thingifier/core/domain/definitions/ThingDefinition.java

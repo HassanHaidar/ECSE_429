@@ -1,0 +1,1 @@
+Z 2javaXhrdthingifier/src/main/java/uk/co/compendiumdev/thingifier/api/restapihandlers/RelationshipDetails.java

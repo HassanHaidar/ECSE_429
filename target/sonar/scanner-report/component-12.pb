@@ -1,0 +1,1 @@
+ 2javaX hrjexamplemodels/src/main/java/uk/co/compendiumdev/thingifier/application/examples/TodoManagerThingifier.java

@@ -1,0 +1,1 @@
+T 2javaXÊhrjthingifier/src/main/java/uk/co/compendiumdev/thingifier/api/restapihandlers/BodyRelationshipValidator.java

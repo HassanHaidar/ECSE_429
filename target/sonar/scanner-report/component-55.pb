@@ -1,0 +1,1 @@
+7 2javaXhrwercoremodel/src/main/java/uk/co/compendiumdev/thingifier/core/domain/definitions/validation/NotEmptyValidationRule.java

@@ -2,5 +2,5 @@ projectKey=uk.co.compendiumdev.thingifier.sonar
 serverUrl=http://localhost:9000
 serverVersion=8.8.0.42792
 dashboardUrl=http://localhost:9000/dashboard?id=uk.co.compendiumdev.thingifier.sonar
-ceTaskId=AXic46HGVfP4egYMW4Jz
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AXic46HGVfP4egYMW4Jz
+ceTaskId=AXic8zcmVfP4egYMW4J4
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AXic8zcmVfP4egYMW4J4

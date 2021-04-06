@@ -58,7 +58,7 @@ public class CreateCategoryPerformanceTest {
     @Test
     public void createCategories() throws InterruptedException {
         
-        System.out.println("TestNum, Test Start Time (ms), action Time (ms), post Time(ms):");
+        System.out.println("Sample Number, Global time (ms), transaction time (ms):");
         for(int i = 1; i<= SAMPLES; i++){
             createCategory(i);
             Thread.sleep(SLEEP_TIME);
@@ -70,7 +70,7 @@ public class CreateCategoryPerformanceTest {
         givenBody.put(TITLE, TITLE_EXAMPLE);
         givenBody.put(DESCRIPTION, DESCRIPTION_EXAMPLE);
 
-        long createStartTime = System.currentTimeMillis();
+        long timeAfterTest = System.currentTimeMillis() - TestStartTime;
 
         long postStartTime = System.currentTimeMillis();
 
@@ -91,13 +91,9 @@ public class CreateCategoryPerformanceTest {
                 extract().
                 path(ID);
 
-
-        long testTime = System.currentTimeMillis() - createStartTime;
-        long timeAfterTest = System.currentTimeMillis() - TestStartTime;
-
         if(experimentNumber != -1) {
-            System.out.printf("%d,%d,%d,%d\n",
-                    experimentNumber, timeAfterTest, testTime, postTime);
+            System.out.printf("%d,%d,%d\n",
+                    experimentNumber, timeAfterTest, postTime);
         }
 
         return Integer.parseInt(id);

@@ -11,7 +11,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uk.co.compendiumdev.Environment;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.equalTo;
@@ -36,6 +38,7 @@ public class DeleteTodoPerformanceTest {
 
     private static final String TRUE = "true";
 
+    List<Integer> todoIds = new ArrayList<Integer>();
     private static long globalStartTime;
 
 
@@ -57,13 +60,21 @@ public class DeleteTodoPerformanceTest {
         final int todos = clearedData.getList(TODOS).size();
 
         Assumptions.assumeTrue(todos == 0);
+
+        // populate
+        for(int i = 1; i<= SAMPLES; i++){
+            todoIds.add(createTodo());
+        }
     }
 
+
     @Test
-    public void createAndDeleteTodos() throws InterruptedException {
-        System.out.println("TestNum, Test Start Time (ms), action Time (ms), post Time(ms):");
-        for(int i = 1; i<= SAMPLES; i++){
-            createAndDeleteTodo(i);
+    public void deleteTodos() throws InterruptedException {
+        System.out.println("Sample Number, Global time (ms), transaction time (ms):");
+        int i = 0;
+        for(Integer id: todoIds){
+            deleteTodos(i, id);
+            i++;
             Thread.sleep(SLEEP_TIME);
         }
     }
@@ -93,32 +104,21 @@ public class DeleteTodoPerformanceTest {
         return Integer.parseInt(id);
     }
 
-    private static int createAndDeleteTodo(int experimentNumber){
-        int id = createTodo();
+    private static void deleteTodos(int experimentNumber, int todoId) {
+        long globalTime = System.currentTimeMillis() - globalStartTime;
 
         long createStartTime = System.currentTimeMillis();
 
-        long postStartTime = System.currentTimeMillis();
         Response r = given().
-                pathParam(ID, id).
+                pathParam(ID, todoId).
                 when().
                 delete(SPECIFIC_TODO_PATH)
                 .thenReturn();
-
-        long postTime = System.currentTimeMillis() - postStartTime;
         r.then().contentType(ContentType.JSON)
                 .statusCode(HttpStatus.SC_OK);
 
         long createTime = System.currentTimeMillis() - createStartTime;
 
-        long globalTime = System.currentTimeMillis() - globalStartTime;
-
-        if(experimentNumber != -1) {
-            System.out.printf("%d,%d,%d,%d\n",
-                    experimentNumber, globalTime, createTime, postTime);
-        }
-
-        return id;
+        System.out.printf("%d,%d,%d\n", experimentNumber, globalTime, createTime);
     }
-
 }

@@ -1,0 +1,1 @@
+@ 2javaX!hr\ercoremodel/src/main/java/uk/co/compendiumdev/thingifier/core/query/QueryInstanceFilter.java

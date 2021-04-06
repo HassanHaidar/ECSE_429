@@ -1,0 +1,1 @@
+S 2javaXJhrfthingifier/src/main/java/uk/co/compendiumdev/thingifier/api/restapihandlers/BodyCreationValidator.java

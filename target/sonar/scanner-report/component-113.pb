@@ -1,0 +1,1 @@
+q 2javaXChrtthingifier/src/main/java/uk/co/compendiumdev/thingifier/application/internalhttpconversion/InternalHttpResponse.java

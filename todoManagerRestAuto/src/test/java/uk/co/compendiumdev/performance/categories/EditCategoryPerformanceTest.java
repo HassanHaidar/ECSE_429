@@ -11,7 +11,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uk.co.compendiumdev.Environment;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.equalTo;
@@ -37,6 +39,8 @@ public class EditCategoryPerformanceTest {
     private static final String NEW_TITLE = "Home";
     private static final String NEW_DESCRIPTION = "Home chores";
 
+    List<Integer> categoryIds = new ArrayList<Integer>();
+
     private static long globalStartTime;
 
 
@@ -46,7 +50,7 @@ public class EditCategoryPerformanceTest {
     }
 
     @BeforeEach
-    public void clearDataFromEnv(){
+    public void clearDataFromEnv() throws InterruptedException {
         RestAssured.baseURI = Environment.getBaseUri();
         if(RestAssured.baseURI == null) fail("To Do Manager isn't running!");
 
@@ -58,13 +62,21 @@ public class EditCategoryPerformanceTest {
         final int categories = clearedData.getList(CATEGORIES).size();
 
         Assumptions.assumeTrue(categories == 0);
+
+        // populate
+        for(int i = 1; i <= SAMPLES; i++){
+            categoryIds.add(createCategory());
+            Thread.sleep(SLEEP_TIME);
+        }
     }
 
     @Test
-    public void createAndUpdateCategories() throws InterruptedException {
-        System.out.println("TestNum, Test Start Time (ms), action Time (ms), post Time(ms):");
-        for(int i = 1; i<= SAMPLES; i++){
-            createAndEditCategory(i);
+    public void updateProjects() throws InterruptedException {
+        System.out.println("Sample Number, Global time (ms), transaction time (ms):");
+        int i = 0;
+        for(Integer id: categoryIds){
+            updateCategory(i, id);
+            i++;
             Thread.sleep(SLEEP_TIME);
         }
     }
@@ -93,19 +105,17 @@ public class EditCategoryPerformanceTest {
         return Integer.parseInt(id);
     }
 
-    public void createAndEditCategory(int experimentNumber){
-        int id = createCategory();
-
+    public void updateCategory(int experimentNumber, int categoryId){
         final HashMap<String, Object> givenBody = new HashMap<>();
         givenBody.put(TITLE, NEW_TITLE);
         givenBody.put(DESCRIPTION, NEW_DESCRIPTION);
 
-        long createStartTime = System.currentTimeMillis();
+        long globalTime = System.currentTimeMillis() - globalStartTime;
 
         long postStartTime = System.currentTimeMillis();
 
         Response r = given().
-                pathParam(ID, id).
+                pathParam(ID, categoryId).
                 body(givenBody).
                 when().
                 put(SPECIFIC_CATEGORIES_PATH)
@@ -117,17 +127,14 @@ public class EditCategoryPerformanceTest {
                 .contentType(ContentType.JSON)
                 .statusCode(HttpStatus.SC_OK)
                 .body(
-                        ID, equalTo(String.valueOf(id)),
+                        ID, equalTo(String.valueOf(categoryId)),
                         TITLE, equalTo(NEW_TITLE),
                         DESCRIPTION, equalTo(NEW_DESCRIPTION)
                 );
 
-        long testTime = System.currentTimeMillis() - createStartTime;
-        long globalTime = System.currentTimeMillis() - globalStartTime;
-
         if(experimentNumber != -1) {
-            System.out.printf("%d,%d,%d,%d\n",
-                    experimentNumber, globalTime, testTime, postTime);
+            System.out.printf("%d,%d,%d\n",
+                    experimentNumber, globalTime, postTime);
         }
     }
 

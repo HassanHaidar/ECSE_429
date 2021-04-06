@@ -10,5 +10,5 @@ import org.junit.runner.RunWith;
         features = {"src/test/resources"}
         //glue = "uk.co.compendiumdev.acceptance.features"
 )
-public class CucumberTests {
+public class CucumberTest {
 }

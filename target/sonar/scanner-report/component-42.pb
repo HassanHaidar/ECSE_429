@@ -1,0 +1,1 @@
+* 2javaXhraercoremodel/src/main/java/uk/co/compendiumdev/thingifier/core/domain/definitions/Cardinality.java

@@ -1,0 +1,1 @@
+A 2javaX hrXercoremodel/src/main/java/uk/co/compendiumdev/thingifier/core/query/QueryListFilter.java

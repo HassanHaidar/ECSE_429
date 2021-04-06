@@ -1,0 +1,1 @@
+D 2javaXêhrHercoremodel/src/main/java/uk/co/compendiumdev/thingifier/core/Thing.java

@@ -1,0 +1,1 @@
+6 2javaX#hr|ercoremodel/src/main/java/uk/co/compendiumdev/thingifier/core/domain/definitions/validation/MaximumLengthValidationRule.java

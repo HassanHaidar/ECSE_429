@@ -1,0 +1,1 @@
+d 2javaXNhrWthingifier/src/main/java/uk/co/compendiumdev/thingifier/api/routings/RoutingStatus.java

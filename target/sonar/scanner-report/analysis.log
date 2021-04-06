@@ -1,0 +1,139 @@
+SonarQube plugins:
+  - Python Code Quality and Security 3.4.0.7980 (python)
+  - CSS Code Quality and Security 1.4.0.1899 (cssfamily)
+  - Go Code Quality and Security 1.8.2.1946 (go)
+  - JaCoCo 1.1.0.898 (jacoco)
+  - Kotlin Code Quality and Security 1.8.2.1946 (kotlin)
+  - JavaScript/TypeScript Code Quality and Security 7.3.0.15071 (javascript)
+  - Ruby Code Quality and Security 1.8.2.1946 (ruby)
+  - Scala Code Quality and Security 1.8.2.1946 (sonarscala)
+  - C# Code Quality and Security 8.19.0.28253 (csharp)
+  - Java Code Quality and Security 6.14.0.25463 (java)
+  - HTML Code Quality and Security 3.3.0.2534 (web)
+  - Flex Code Quality and Security 2.6.0.2294 (flex)
+  - XML Code Quality and Security 2.1.0.2861 (xml)
+  - PHP Code Quality and Security 3.16.0.7320 (php)
+  - VB.NET Code Quality and Security 8.19.0.28253 (vbnet)
+Global server settings:
+  - sonar.core.id=BF41A1F2-AXictJaAVfP4egYMWzH-
+  - sonar.core.startTime=2021-04-04T04:46:22-0700
+  - sonar.forceAuthentication=true
+Project server settings:
+Project scanner properties:
+  - sonar.host.url=http://localhost:9000
+  - sonar.links.ci=
+  - sonar.links.homepage=
+  - sonar.links.issue=
+  - sonar.links.scm=
+  - sonar.links.scm_dev=
+  - sonar.login=******
+  - sonar.moduleKey=uk.co.compendiumdev.thingifier.sonar:uk.co.compendiumdev.thingifier:thingifier-root
+  - sonar.modules=uk.co.compendiumdev:ercoremodel,uk.co.compendiumdev:thingifier,uk.co.compendiumdev.thingifier:examplemodels,uk.co.compendiumdev.thingifier:todomanagerauto,uk.co.compendiumdev.thingifier:standAloneTodoListManagerRestApi,uk.co.compendiumdev.thingifier:swaggerizer
+  - sonar.projectBaseDir=C:\Users\hassa\Documents\ECSE_429\ECSE_429
+  - sonar.projectBuildDir=C:\Users\hassa\Documents\ECSE_429\ECSE_429\target
+  - sonar.projectKey=uk.co.compendiumdev.thingifier.sonar
+  - sonar.projectName=thingifier-root
+  - sonar.projectVersion=1.0.0
+  - sonar.scanner.app=ScannerMaven
+  - sonar.scanner.appVersion=3.8.0.2131/3.6.3
+  - sonar.sourceEncoding=windows-1252
+  - sonar.sources=C:\Users\hassa\Documents\ECSE_429\ECSE_429\pom.xml
+  - sonar.verbose=true
+  - sonar.working.directory=C:\Users\hassa\Documents\ECSE_429\ECSE_429\target\sonar
+Scanner properties of module: uk.co.compendiumdev.thingifier.sonar:uk.co.compendiumdev.thingifier:standAloneTodoListManagerRestApi
+  - sonar.java.libraries=C:\Users\hassa\.m2\repository\uk\co\compendiumdev\thingifier\1.5.5\thingifier-1.5.5.jar,C:\Users\hassa\.m2\repository\uk\co\compendiumdev\ercoremodel\1.5.5\ercoremodel-1.5.5.jar,C:\Users\hassa\.m2\repository\com\sparkjava\spark-core\2.8.0\spark-core-2.8.0.jar,C:\Users\hassa\.m2\repository\org\slf4j\slf4j-api\1.7.25\slf4j-api-1.7.25.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-server\9.4.12.v20180830\jetty-server-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\javax\servlet\javax.servlet-api\3.1.0\javax.servlet-api-3.1.0.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-http\9.4.12.v20180830\jetty-http-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-util\9.4.12.v20180830\jetty-util-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-io\9.4.12.v20180830\jetty-io-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-webapp\9.4.12.v20180830\jetty-webapp-9.4.12.v20180830.jar,C:\Users\hassa\.m2\...
+  - sonar.java.source=1.8
+  - sonar.java.target=1.8
+  - sonar.java.test.libraries=C:\Users\hassa\.m2\repository\uk\co\compendiumdev\thingifier\1.5.5\thingifier-1.5.5.jar,C:\Users\hassa\.m2\repository\uk\co\compendiumdev\ercoremodel\1.5.5\ercoremodel-1.5.5.jar,C:\Users\hassa\.m2\repository\com\sparkjava\spark-core\2.8.0\spark-core-2.8.0.jar,C:\Users\hassa\.m2\repository\org\slf4j\slf4j-api\1.7.25\slf4j-api-1.7.25.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-server\9.4.12.v20180830\jetty-server-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\javax\servlet\javax.servlet-api\3.1.0\javax.servlet-api-3.1.0.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-http\9.4.12.v20180830\jetty-http-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-util\9.4.12.v20180830\jetty-util-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-io\9.4.12.v20180830\jetty-io-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-webapp\9.4.12.v20180830\jetty-webapp-9.4.12.v20180830.jar,C:\Users\hassa\.m2\...
+  - sonar.libraries=C:\Users\hassa\.m2\repository\uk\co\compendiumdev\thingifier\1.5.5\thingifier-1.5.5.jar,C:\Users\hassa\.m2\repository\uk\co\compendiumdev\ercoremodel\1.5.5\ercoremodel-1.5.5.jar,C:\Users\hassa\.m2\repository\com\sparkjava\spark-core\2.8.0\spark-core-2.8.0.jar,C:\Users\hassa\.m2\repository\org\slf4j\slf4j-api\1.7.25\slf4j-api-1.7.25.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-server\9.4.12.v20180830\jetty-server-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\javax\servlet\javax.servlet-api\3.1.0\javax.servlet-api-3.1.0.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-http\9.4.12.v20180830\jetty-http-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-util\9.4.12.v20180830\jetty-util-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-io\9.4.12.v20180830\jetty-io-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-webapp\9.4.12.v20180830\jetty-webapp-9.4.12.v20180830.jar,C:\Users\hassa\.m2\...
+  - sonar.moduleKey=uk.co.compendiumdev.thingifier.sonar:uk.co.compendiumdev.thingifier:standAloneTodoListManagerRestApi
+  - sonar.projectBaseDir=C:\Users\hassa\Documents\ECSE_429\ECSE_429\standAloneTodoListManagerRestApi
+  - sonar.projectBuildDir=C:\Users\hassa\Documents\ECSE_429\ECSE_429\standAloneTodoListManagerRestApi\target
+  - sonar.projectKey=uk.co.compendiumdev.thingifier.sonar:uk.co.compendiumdev.thingifier:standAloneTodoListManagerRestApi
+  - sonar.projectName=standAloneTodoListManagerRestApi
+  - sonar.projectVersion=1.5.5
+  - sonar.sources=C:\Users\hassa\Documents\ECSE_429\ECSE_429\standAloneTodoListManagerRestApi\pom.xml,C:\Users\hassa\Documents\ECSE_429\ECSE_429\standAloneTodoListManagerRestApi\src\main\java
+  - sonar.working.directory=C:\Users\hassa\Documents\ECSE_429\ECSE_429\standAloneTodoListManagerRestApi\target\sonar
+Scanner properties of module: uk.co.compendiumdev.thingifier.sonar:uk.co.compendiumdev.thingifier:examplemodels
+  - sonar.binaries=C:\Users\hassa\Documents\ECSE_429\ECSE_429\examplemodels\target\classes
+  - sonar.groovy.binaries=C:\Users\hassa\Documents\ECSE_429\ECSE_429\examplemodels\target\classes
+  - sonar.java.binaries=C:\Users\hassa\Documents\ECSE_429\ECSE_429\examplemodels\target\classes
+  - sonar.java.libraries=C:\Users\hassa\.m2\repository\uk\co\compendiumdev\thingifier\1.5.5\thingifier-1.5.5.jar,C:\Users\hassa\.m2\repository\uk\co\compendiumdev\ercoremodel\1.5.5\ercoremodel-1.5.5.jar,C:\Users\hassa\.m2\repository\com\sparkjava\spark-core\2.8.0\spark-core-2.8.0.jar,C:\Users\hassa\.m2\repository\org\slf4j\slf4j-api\1.7.25\slf4j-api-1.7.25.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-server\9.4.12.v20180830\jetty-server-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\javax\servlet\javax.servlet-api\3.1.0\javax.servlet-api-3.1.0.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-http\9.4.12.v20180830\jetty-http-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-util\9.4.12.v20180830\jetty-util-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-io\9.4.12.v20180830\jetty-io-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-webapp\9.4.12.v20180830\jetty-webapp-9.4.12.v20180830.jar,C:\Users\hassa\.m2\...
+  - sonar.java.source=1.8
+  - sonar.java.target=1.8
+  - sonar.java.test.libraries=C:\Users\hassa\Documents\ECSE_429\ECSE_429\examplemodels\target\classes,C:\Users\hassa\.m2\repository\uk\co\compendiumdev\thingifier\1.5.5\thingifier-1.5.5.jar,C:\Users\hassa\.m2\repository\uk\co\compendiumdev\ercoremodel\1.5.5\ercoremodel-1.5.5.jar,C:\Users\hassa\.m2\repository\com\sparkjava\spark-core\2.8.0\spark-core-2.8.0.jar,C:\Users\hassa\.m2\repository\org\slf4j\slf4j-api\1.7.25\slf4j-api-1.7.25.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-server\9.4.12.v20180830\jetty-server-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\javax\servlet\javax.servlet-api\3.1.0\javax.servlet-api-3.1.0.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-http\9.4.12.v20180830\jetty-http-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-util\9.4.12.v20180830\jetty-util-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-io\9.4.12.v20180830\jetty-io-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-webap...
+  - sonar.libraries=C:\Users\hassa\.m2\repository\uk\co\compendiumdev\thingifier\1.5.5\thingifier-1.5.5.jar,C:\Users\hassa\.m2\repository\uk\co\compendiumdev\ercoremodel\1.5.5\ercoremodel-1.5.5.jar,C:\Users\hassa\.m2\repository\com\sparkjava\spark-core\2.8.0\spark-core-2.8.0.jar,C:\Users\hassa\.m2\repository\org\slf4j\slf4j-api\1.7.25\slf4j-api-1.7.25.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-server\9.4.12.v20180830\jetty-server-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\javax\servlet\javax.servlet-api\3.1.0\javax.servlet-api-3.1.0.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-http\9.4.12.v20180830\jetty-http-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-util\9.4.12.v20180830\jetty-util-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-io\9.4.12.v20180830\jetty-io-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-webapp\9.4.12.v20180830\jetty-webapp-9.4.12.v20180830.jar,C:\Users\hassa\.m2\...
+  - sonar.links.homepage=https://compendiumdev.co.uk
+  - sonar.moduleKey=uk.co.compendiumdev.thingifier.sonar:uk.co.compendiumdev.thingifier:examplemodels
+  - sonar.projectBaseDir=C:\Users\hassa\Documents\ECSE_429\ECSE_429\examplemodels
+  - sonar.projectBuildDir=C:\Users\hassa\Documents\ECSE_429\ECSE_429\examplemodels\target
+  - sonar.projectKey=uk.co.compendiumdev.thingifier.sonar:uk.co.compendiumdev.thingifier:examplemodels
+  - sonar.projectName=thingifier example models
+  - sonar.projectVersion=1.5.5
+  - sonar.sourceEncoding=UTF-8
+  - sonar.sources=C:\Users\hassa\Documents\ECSE_429\ECSE_429\examplemodels\pom.xml,C:\Users\hassa\Documents\ECSE_429\ECSE_429\examplemodels\src\main\java
+  - sonar.working.directory=C:\Users\hassa\Documents\ECSE_429\ECSE_429\examplemodels\target\sonar
+Scanner properties of module: uk.co.compendiumdev.thingifier.sonar:uk.co.compendiumdev.thingifier:swaggerizer
+  - sonar.java.libraries=C:\Users\hassa\.m2\repository\io\swagger\core\v3\swagger-models\2.1.4\swagger-models-2.1.4.jar,C:\Users\hassa\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.11.1\jackson-annotations-2.11.1.jar,C:\Users\hassa\.m2\repository\com\google\code\gson\gson\2.8.6\gson-2.8.6.jar,C:\Users\hassa\.m2\repository\uk\co\compendiumdev\thingifier\1.5.5\thingifier-1.5.5.jar,C:\Users\hassa\.m2\repository\uk\co\compendiumdev\ercoremodel\1.5.5\ercoremodel-1.5.5.jar,C:\Users\hassa\.m2\repository\com\sparkjava\spark-core\2.8.0\spark-core-2.8.0.jar,C:\Users\hassa\.m2\repository\org\slf4j\slf4j-api\1.7.25\slf4j-api-1.7.25.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-server\9.4.12.v20180830\jetty-server-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\javax\servlet\javax.servlet-api\3.1.0\javax.servlet-api-3.1.0.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-http\9.4.12.v20180830\jetty-http-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-ut...
+  - sonar.java.source=1.8
+  - sonar.java.target=1.8
+  - sonar.java.test.libraries=C:\Users\hassa\.m2\repository\io\swagger\core\v3\swagger-models\2.1.4\swagger-models-2.1.4.jar,C:\Users\hassa\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.11.1\jackson-annotations-2.11.1.jar,C:\Users\hassa\.m2\repository\com\google\code\gson\gson\2.8.6\gson-2.8.6.jar,C:\Users\hassa\.m2\repository\uk\co\compendiumdev\thingifier\1.5.5\thingifier-1.5.5.jar,C:\Users\hassa\.m2\repository\uk\co\compendiumdev\ercoremodel\1.5.5\ercoremodel-1.5.5.jar,C:\Users\hassa\.m2\repository\com\sparkjava\spark-core\2.8.0\spark-core-2.8.0.jar,C:\Users\hassa\.m2\repository\org\slf4j\slf4j-api\1.7.25\slf4j-api-1.7.25.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-server\9.4.12.v20180830\jetty-server-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\javax\servlet\javax.servlet-api\3.1.0\javax.servlet-api-3.1.0.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-http\9.4.12.v20180830\jetty-http-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-ut...
+  - sonar.libraries=C:\Users\hassa\.m2\repository\io\swagger\core\v3\swagger-models\2.1.4\swagger-models-2.1.4.jar,C:\Users\hassa\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.11.1\jackson-annotations-2.11.1.jar,C:\Users\hassa\.m2\repository\com\google\code\gson\gson\2.8.6\gson-2.8.6.jar,C:\Users\hassa\.m2\repository\uk\co\compendiumdev\thingifier\1.5.5\thingifier-1.5.5.jar,C:\Users\hassa\.m2\repository\uk\co\compendiumdev\ercoremodel\1.5.5\ercoremodel-1.5.5.jar,C:\Users\hassa\.m2\repository\com\sparkjava\spark-core\2.8.0\spark-core-2.8.0.jar,C:\Users\hassa\.m2\repository\org\slf4j\slf4j-api\1.7.25\slf4j-api-1.7.25.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-server\9.4.12.v20180830\jetty-server-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\javax\servlet\javax.servlet-api\3.1.0\javax.servlet-api-3.1.0.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-http\9.4.12.v20180830\jetty-http-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-ut...
+  - sonar.moduleKey=uk.co.compendiumdev.thingifier.sonar:uk.co.compendiumdev.thingifier:swaggerizer
+  - sonar.projectBaseDir=C:\Users\hassa\Documents\ECSE_429\ECSE_429\swaggerizer
+  - sonar.projectBuildDir=C:\Users\hassa\Documents\ECSE_429\ECSE_429\swaggerizer\target
+  - sonar.projectKey=uk.co.compendiumdev.thingifier.sonar:uk.co.compendiumdev.thingifier:swaggerizer
+  - sonar.projectName=swaggerizer
+  - sonar.sources=C:\Users\hassa\Documents\ECSE_429\ECSE_429\swaggerizer\pom.xml
+  - sonar.working.directory=C:\Users\hassa\Documents\ECSE_429\ECSE_429\swaggerizer\target\sonar
+Scanner properties of module: uk.co.compendiumdev.thingifier.sonar:uk.co.compendiumdev:thingifier
+  - sonar.binaries=C:\Users\hassa\Documents\ECSE_429\ECSE_429\thingifier\target\classes
+  - sonar.groovy.binaries=C:\Users\hassa\Documents\ECSE_429\ECSE_429\thingifier\target\classes
+  - sonar.java.binaries=C:\Users\hassa\Documents\ECSE_429\ECSE_429\thingifier\target\classes
+  - sonar.java.libraries=C:\Users\hassa\.m2\repository\uk\co\compendiumdev\ercoremodel\1.5.5\ercoremodel-1.5.5.jar,C:\Users\hassa\.m2\repository\com\sparkjava\spark-core\2.8.0\spark-core-2.8.0.jar,C:\Users\hassa\.m2\repository\org\slf4j\slf4j-api\1.7.25\slf4j-api-1.7.25.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-server\9.4.12.v20180830\jetty-server-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\javax\servlet\javax.servlet-api\3.1.0\javax.servlet-api-3.1.0.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-http\9.4.12.v20180830\jetty-http-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-util\9.4.12.v20180830\jetty-util-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-io\9.4.12.v20180830\jetty-io-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-webapp\9.4.12.v20180830\jetty-webapp-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-xml\9.4.12.v20180830\jetty-xml-9.4.12.v20180830.jar,C...
+  - sonar.java.source=1.8
+  - sonar.java.target=1.8
+  - sonar.java.test.libraries=C:\Users\hassa\Documents\ECSE_429\ECSE_429\thingifier\target\classes,C:\Users\hassa\.m2\repository\uk\co\compendiumdev\ercoremodel\1.5.5\ercoremodel-1.5.5.jar,C:\Users\hassa\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.6.2\junit-jupiter-api-5.6.2.jar,C:\Users\hassa\.m2\repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar,C:\Users\hassa\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar,C:\Users\hassa\.m2\repository\org\junit\platform\junit-platform-commons\1.6.2\junit-platform-commons-1.6.2.jar,C:\Users\hassa\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.6.2\junit-jupiter-engine-5.6.2.jar,C:\Users\hassa\.m2\repository\org\junit\platform\junit-platform-engine\1.6.2\junit-platform-engine-1.6.2.jar,C:\Users\hassa\.m2\repository\com\thoughtworks\xstream\xstream\1.4.12\xstream-1.4.12.jar,C:\Users\hassa\.m2\repository\xmlpull\xmlpull\1.1.3.1\xmlpull-1.1.3.1.jar,C:\Users\hassa\.m2\repository\xpp3\xpp3_min\1.1.4c\xpp3_min-1.1.4c.jar,C...
+  - sonar.libraries=C:\Users\hassa\.m2\repository\uk\co\compendiumdev\ercoremodel\1.5.5\ercoremodel-1.5.5.jar,C:\Users\hassa\.m2\repository\com\sparkjava\spark-core\2.8.0\spark-core-2.8.0.jar,C:\Users\hassa\.m2\repository\org\slf4j\slf4j-api\1.7.25\slf4j-api-1.7.25.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-server\9.4.12.v20180830\jetty-server-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\javax\servlet\javax.servlet-api\3.1.0\javax.servlet-api-3.1.0.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-http\9.4.12.v20180830\jetty-http-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-util\9.4.12.v20180830\jetty-util-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-io\9.4.12.v20180830\jetty-io-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-webapp\9.4.12.v20180830\jetty-webapp-9.4.12.v20180830.jar,C:\Users\hassa\.m2\repository\org\eclipse\jetty\jetty-xml\9.4.12.v20180830\jetty-xml-9.4.12.v20180830.jar,C...
+  - sonar.links.homepage=https://compendiumdev.co.uk
+  - sonar.moduleKey=uk.co.compendiumdev.thingifier.sonar:uk.co.compendiumdev:thingifier
+  - sonar.projectBaseDir=C:\Users\hassa\Documents\ECSE_429\ECSE_429\thingifier
+  - sonar.projectBuildDir=C:\Users\hassa\Documents\ECSE_429\ECSE_429\thingifier\target
+  - sonar.projectKey=uk.co.compendiumdev.thingifier.sonar:uk.co.compendiumdev:thingifier
+  - sonar.projectName=thingifier
+  - sonar.sourceEncoding=UTF-8
+  - sonar.sources=C:\Users\hassa\Documents\ECSE_429\ECSE_429\thingifier\pom.xml,C:\Users\hassa\Documents\ECSE_429\ECSE_429\thingifier\src\main\java
+  - sonar.working.directory=C:\Users\hassa\Documents\ECSE_429\ECSE_429\thingifier\target\sonar
+Scanner properties of module: uk.co.compendiumdev.thingifier.sonar:uk.co.compendiumdev:ercoremodel
+  - sonar.binaries=C:\Users\hassa\Documents\ECSE_429\ECSE_429\ercoremodel\target\classes
+  - sonar.groovy.binaries=C:\Users\hassa\Documents\ECSE_429\ECSE_429\ercoremodel\target\classes
+  - sonar.java.binaries=C:\Users\hassa\Documents\ECSE_429\ECSE_429\ercoremodel\target\classes
+  - sonar.java.source=1.8
+  - sonar.java.target=1.8
+  - sonar.java.test.libraries=C:\Users\hassa\Documents\ECSE_429\ECSE_429\ercoremodel\target\classes,C:\Users\hassa\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.6.2\junit-jupiter-api-5.6.2.jar,C:\Users\hassa\.m2\repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar,C:\Users\hassa\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar,C:\Users\hassa\.m2\repository\org\junit\platform\junit-platform-commons\1.6.2\junit-platform-commons-1.6.2.jar,C:\Users\hassa\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.6.2\junit-jupiter-engine-5.6.2.jar,C:\Users\hassa\.m2\repository\org\junit\platform\junit-platform-engine\1.6.2\junit-platform-engine-1.6.2.jar
+  - sonar.links.homepage=https://compendiumdev.co.uk
+  - sonar.moduleKey=uk.co.compendiumdev.thingifier.sonar:uk.co.compendiumdev:ercoremodel
+  - sonar.projectBaseDir=C:\Users\hassa\Documents\ECSE_429\ECSE_429\ercoremodel
+  - sonar.projectBuildDir=C:\Users\hassa\Documents\ECSE_429\ECSE_429\ercoremodel\target
+  - sonar.projectKey=uk.co.compendiumdev.thingifier.sonar:uk.co.compendiumdev:ercoremodel
+  - sonar.projectName=er core model
+  - sonar.projectVersion=1.5.5
+  - sonar.sourceEncoding=UTF-8
+  - sonar.sources=C:\Users\hassa\Documents\ECSE_429\ECSE_429\ercoremodel\pom.xml,C:\Users\hassa\Documents\ECSE_429\ECSE_429\ercoremodel\src\main\java
+  - sonar.working.directory=C:\Users\hassa\Documents\ECSE_429\ECSE_429\ercoremodel\target\sonar
+Scanner properties of module: uk.co.compendiumdev.thingifier.sonar:uk.co.compendiumdev.thingifier:todomanagerauto
+  - sonar.java.libraries=C:\Users\hassa\.m2\repository\com\google\code\gson\gson\2.8.5\gson-2.8.5.jar,C:\Users\hassa\.m2\repository\info\cukes\cucumber-java\1.2.5\cucumber-java-1.2.5.jar,C:\Users\hassa\.m2\repository\info\cukes\cucumber-core\1.2.5\cucumber-core-1.2.5.jar,C:\Users\hassa\.m2\repository\info\cukes\cucumber-html\0.2.3\cucumber-html-0.2.3.jar,C:\Users\hassa\.m2\repository\info\cukes\cucumber-jvm-deps\1.0.5\cucumber-jvm-deps-1.0.5.jar,C:\Users\hassa\.m2\repository\info\cukes\gherkin\2.12.2\gherkin-2.12.2.jar,C:\Users\hassa\.m2\repository\com\squareup\okhttp3\okhttp\3.4.2\okhttp-3.4.2.jar,C:\Users\hassa\.m2\repository\com\squareup\okio\okio\1.9.0\okio-1.9.0.jar
+  - sonar.java.source=1.8
+  - sonar.java.target=1.8
+  - sonar.java.test.binaries=C:\Users\hassa\Documents\ECSE_429\ECSE_429\todoManagerRestAuto\target\test-classes
+  - sonar.java.test.libraries=C:\Users\hassa\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.6.2\junit-jupiter-api-5.6.2.jar,C:\Users\hassa\.m2\repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar,C:\Users\hassa\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar,C:\Users\hassa\.m2\repository\org\junit\platform\junit-platform-commons\1.6.2\junit-platform-commons-1.6.2.jar,C:\Users\hassa\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.6.2\junit-jupiter-engine-5.6.2.jar,C:\Users\hassa\.m2\repository\org\junit\platform\junit-platform-engine\1.6.2\junit-platform-engine-1.6.2.jar,C:\Users\hassa\.m2\repository\com\google\code\gson\gson\2.8.5\gson-2.8.5.jar,C:\Users\hassa\.m2\repository\info\cukes\cucumber-java\1.2.5\cucumber-java-1.2.5.jar,C:\Users\hassa\.m2\repository\info\cukes\cucumber-core\1.2.5\cucumber-core-1.2.5.jar,C:\Users\hassa\.m2\repository\info\cukes\cucumber-html\0.2.3\cucumber-html-0.2.3.jar,C:\Users\hassa\.m2\repository\info\cukes\cucumber-jvm-deps\1.0...
+  - sonar.libraries=C:\Users\hassa\.m2\repository\com\google\code\gson\gson\2.8.5\gson-2.8.5.jar,C:\Users\hassa\.m2\repository\info\cukes\cucumber-java\1.2.5\cucumber-java-1.2.5.jar,C:\Users\hassa\.m2\repository\info\cukes\cucumber-core\1.2.5\cucumber-core-1.2.5.jar,C:\Users\hassa\.m2\repository\info\cukes\cucumber-html\0.2.3\cucumber-html-0.2.3.jar,C:\Users\hassa\.m2\repository\info\cukes\cucumber-jvm-deps\1.0.5\cucumber-jvm-deps-1.0.5.jar,C:\Users\hassa\.m2\repository\info\cukes\gherkin\2.12.2\gherkin-2.12.2.jar,C:\Users\hassa\.m2\repository\com\squareup\okhttp3\okhttp\3.4.2\okhttp-3.4.2.jar,C:\Users\hassa\.m2\repository\com\squareup\okio\okio\1.9.0\okio-1.9.0.jar
+  - sonar.moduleKey=uk.co.compendiumdev.thingifier.sonar:uk.co.compendiumdev.thingifier:todomanagerauto
+  - sonar.projectBaseDir=C:\Users\hassa\Documents\ECSE_429\ECSE_429\todoManagerRestAuto
+  - sonar.projectBuildDir=C:\Users\hassa\Documents\ECSE_429\ECSE_429\todoManagerRestAuto\target
+  - sonar.projectKey=uk.co.compendiumdev.thingifier.sonar:uk.co.compendiumdev.thingifier:todomanagerauto
+  - sonar.projectName=todomanagerauto
+  - sonar.projectVersion=1.0-SNAPSHOT
+  - sonar.sources=C:\Users\hassa\Documents\ECSE_429\ECSE_429\todoManagerRestAuto\pom.xml
+  - sonar.tests=C:\Users\hassa\Documents\ECSE_429\ECSE_429\todoManagerRestAuto\src\test\java
+  - sonar.working.directory=C:\Users\hassa\Documents\ECSE_429\ECSE_429\todoManagerRestAuto\target\sonar

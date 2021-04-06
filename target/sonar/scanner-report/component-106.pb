@@ -1,0 +1,1 @@
+j 2javaX(hrWthingifier/src/main/java/uk/co/compendiumdev/thingifier/apiconfig/StatusCodeConfig.java

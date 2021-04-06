@@ -1,0 +1,1 @@
+< 2javaXáhraercoremodel/src/main/java/uk/co/compendiumdev/thingifier/core/domain/instances/ThingInstance.java

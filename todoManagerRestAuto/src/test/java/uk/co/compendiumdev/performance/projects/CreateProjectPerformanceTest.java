@@ -18,55 +18,15 @@ import static uk.co.compendiumdev.performance.TestVars.SLEEP_TIME;
 
 public class CreateProjectPerformanceTest {
 
-    private static final String ALL_PROJECTS_PATH = "/projects";
-    private static final String CLEAR_PATH = "/admin/data/thingifier";
-    private static final String PROJECTS = "projects";
-
-    private static final String ID = "id";
-    private static final String TITLE = "title";
-    private static final String DESCRIPTION = "description";
-    private static final String COMPLETED = "completed";
-    private static final String ACTIVE = "active";
-
-    private static final String TITLE_EXAMPLE = "ECSE429";
-    private static final String DESCRIPTION_EXAMPLE = "Deliverable C";
-
-    private static final String TRUE = "true";
-    private static final String FALSE = "false";
 
     private static long globalStartTime;
-
-    private static final String PROJECT_CATEGORIES = "projects/{id}/categories";
-    private static final String PROJECT_CATEGORIES_ID = "projects/{id}/categories/{categoryId}";
-
-    private static final String PROJECT_TASKS = "projects/{id}/tasks";
-    private static final String PROJECT_TASKS_ID = "projects/{id}/tasks/{taskId}";
-
-    private static final String CATEGORY_TITLE = "cia deserunt mollita";
-    private static final String CATEGORY_DESCRIPTION = "dolore eu fugiat nua";
-
-    private static final String TODO_TITLE = "cia deserunt mollita";
-    private static final String TODO_DESCRIPTION = "dolore eu fugiat nua";
-
-    private static final String ID_FIELD = "id";
     private static final String TITLE_FIELD = "title";
-    private static final String DESCRIPTION_FIELD = "description";
     private static final String COMPLETED_FIELD = "completed";
     private static final String ACTIVE_FIELD = "active";
-    private static final String DONE_FIELD = "doneStatus";
 
-    private static final String PROJECT_DESCRIPTION = "itation ullamco labo";
     private static final String PROJECT_TITLE = "test project";
 
-    private static final String ERROR = "errorMessages";
-    private static final String BAD_REQUEST = "Could not find field: ";
-    private static final String NOT_FOUND = "Could not find any instances with ";
-    public static final String ERRONEOUS_FIELD = "erroneous_field";
-
     private static int projectId = 0;
-    private static int categoryId = 0;
-    private static int taskId = 0;
-
 
 
     @BeforeAll
@@ -106,6 +66,8 @@ public class CreateProjectPerformanceTest {
         jsonBody.put(ACTIVE_FIELD, true);
         jsonBody.put(COMPLETED_FIELD, false);
 
+        // sample time
+        long globalTime = System.currentTimeMillis() - globalStartTime;
 
         // measure time of api transaction
         // transaction start time
@@ -127,9 +89,6 @@ public class CreateProjectPerformanceTest {
                 .extract()
                 .path("id");
         projectId = Integer.parseInt(responseId);
-
-        long globalTime = System.currentTimeMillis() - globalStartTime;
-
         System.out.printf("%d,%d,%d\n",
                 sampleNumber, globalTime, transactionTime);
     }

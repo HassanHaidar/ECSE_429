@@ -1,0 +1,1 @@
+… 2javaXvhrOthingifier/src/main/java/uk/co/compendiumdev/thingifier/reporting/XmlThing.java

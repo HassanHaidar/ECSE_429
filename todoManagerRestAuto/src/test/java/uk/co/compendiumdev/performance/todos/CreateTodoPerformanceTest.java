@@ -62,7 +62,7 @@ public class CreateTodoPerformanceTest {
 
     @Test
     public void createTodos() throws InterruptedException {
-        System.out.println("TestNum, Test Start Time (ms), action Time (ms), post Time(ms):");
+        System.out.println("Sample Number, Global time (ms), transaction time (ms):");
         for(int i = 1; i<= SAMPLES; i++){
             createTodo(i);
             Thread.sleep(SLEEP_TIME);
@@ -75,7 +75,7 @@ public class CreateTodoPerformanceTest {
         givenBody.put(DESCRIPTION, DESCRIPTION_EXAMPLE);
         givenBody.put(DONE, true);
 
-        long createStartTime = System.currentTimeMillis();
+        long globalTime = System.currentTimeMillis() - globalStartTime;
 
         long postStartTime = System.currentTimeMillis();
         Response r = given().
@@ -94,16 +94,11 @@ public class CreateTodoPerformanceTest {
                 )
                 .extract()
                 .path(ID);
-        long createTime = System.currentTimeMillis() - createStartTime;
-
-
-        long globalTime = System.currentTimeMillis() - globalStartTime;
 
         if(experimentNumber != -1) {
-            System.out.printf("%d,%d,%d,%d\n",
-                    experimentNumber, globalTime, createTime, postTime);
+            System.out.printf("%d,%d,%d\n",
+                    experimentNumber, globalTime, postTime);
         }
-
         return Integer.parseInt(id);
     }
 

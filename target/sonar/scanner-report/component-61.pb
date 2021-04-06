@@ -1,0 +1,1 @@
+= 2javaXçhrnercoremodel/src/main/java/uk/co/compendiumdev/thingifier/core/domain/instances/ThingInstanceRelationships.java

@@ -1,0 +1,1 @@
++ 2javaXUhrcercoremodel/src/main/java/uk/co/compendiumdev/thingifier/core/domain/definitions/DefinedFields.java

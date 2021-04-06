@@ -1,0 +1,1 @@
+O 2javaXahrZthingifier/src/main/java/uk/co/compendiumdev/thingifier/api/response/ApiResponseAsXml.java

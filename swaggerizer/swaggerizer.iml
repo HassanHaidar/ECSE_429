@@ -11,7 +11,7 @@
     <orderEntry type="library" name="Maven: io.swagger.core.v3:swagger-models:2.1.4" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.11.1" level="project" />
     <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.8.6" level="project" />
-    <orderEntry type="module" module-name="thingifier" />
+    <orderEntry type="library" name="Maven: uk.co.compendiumdev:thingifier:1.5.5" level="project" />
     <orderEntry type="module" module-name="ercoremodel" />
     <orderEntry type="library" name="Maven: com.sparkjava:spark-core:2.8.0" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.25" level="project" />

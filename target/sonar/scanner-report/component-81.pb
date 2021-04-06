@@ -1,0 +1,1 @@
+Q 2javaXhrXthingifier/src/main/java/uk/co/compendiumdev/thingifier/api/response/ResponseHeader.java

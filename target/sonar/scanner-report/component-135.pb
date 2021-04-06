@@ -1,0 +1,1 @@
+á 2javaXèhrTthingifier/src/main/java/uk/co/compendiumdev/thingifier/swaggerizer/Swaggerizer.java

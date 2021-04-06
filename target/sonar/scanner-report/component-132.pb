@@ -1,0 +1,1 @@
+„ 2javaX;hrTthingifier/src/main/java/uk/co/compendiumdev/thingifier/reporting/ThingReporter.java

@@ -1,0 +1,1 @@
+- 2javaXÒhrlercoremodel/src/main/java/uk/co/compendiumdev/thingifier/core/domain/definitions/field/definition/Field.java

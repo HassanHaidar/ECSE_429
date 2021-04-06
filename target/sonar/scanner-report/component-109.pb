@@ -1,0 +1,1 @@
+m 2javaXGhrbthingifier/src/main/java/uk/co/compendiumdev/thingifier/apiconfig/ThingifierApiConfigProfiles.java

@@ -1,0 +1,1 @@
+; 2javaXYhrhercoremodel/src/main/java/uk/co/compendiumdev/thingifier/core/domain/instances/RelationshipInstance.java

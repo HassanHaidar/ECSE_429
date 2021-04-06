@@ -11,7 +11,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uk.co.compendiumdev.Environment;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.equalTo;
@@ -40,6 +42,8 @@ public class EditProjectPerformanceTest {
     private static final String TRUE = "true";
     private static final String FALSE = "false";
 
+    List<Integer> projectIds = new ArrayList<Integer>();
+
     private static long globalStartTime;
 
 
@@ -49,7 +53,7 @@ public class EditProjectPerformanceTest {
     }
 
     @BeforeEach
-    public void clearDataFromEnv(){
+    public void clearDataFromEnv() throws InterruptedException {
         RestAssured.baseURI = Environment.getBaseUri();
         if(RestAssured.baseURI == null) fail("To Do Manager isn't running!");
 
@@ -61,13 +65,21 @@ public class EditProjectPerformanceTest {
         final int projects = clearedData.getList(PROJECTS).size();
 
         Assumptions.assumeTrue(projects == 0);
+
+        // populate
+        for(int i = 1; i <= SAMPLES; i++){
+            projectIds.add(createProject());
+            Thread.sleep(SLEEP_TIME);
+        }
     }
 
     @Test
     public void updateProjects() throws InterruptedException {
-        System.out.println("TestNum, Test Start Time (ms), action Time (ms), post Time(ms):");
-        for(int i = 1; i<= SAMPLES; i++){
-            createAndUpdateProject(i);
+        System.out.println("Sample Number, Global time (ms), transaction time (ms):");
+        int i = 0;
+        for(Integer id: projectIds){
+            updateProject(i, id);
+            i++;
             Thread.sleep(SLEEP_TIME);
         }
     }
@@ -99,21 +111,19 @@ public class EditProjectPerformanceTest {
         return Integer.parseInt(id);
     }
 
-    private static void createAndUpdateProject(int experimentNumber){
-        int id = createProject();
-
+    private static void updateProject(int experimentNumber, int projectId){
         final HashMap<String, Object> givenBody = new HashMap<>();
         givenBody.put(TITLE, NEW_TITLE);
         givenBody.put(DESCRIPTION, NEW_DESCRIPTION);
         givenBody.put(ACTIVE, false);
         givenBody.put(COMPLETED, true);
 
-        long createStartTime = System.currentTimeMillis();
+        long globalTime = System.currentTimeMillis() - globalStartTime;
 
         long postStartTime = System.currentTimeMillis();
 
         Response r  = given().
-                pathParam(ID, id).
+                pathParam(ID, projectId).
                 body(givenBody).
                 when().
                 put(SPECIFIC_PROJECT_PATH)
@@ -125,19 +135,16 @@ public class EditProjectPerformanceTest {
                 .contentType(ContentType.JSON)
                 .statusCode(HttpStatus.SC_OK)
                 .body(
-                        ID, equalTo(String.valueOf(id)),
+                        ID, equalTo(String.valueOf(projectId)),
                         TITLE, equalTo(NEW_TITLE),
                         DESCRIPTION, equalTo(NEW_DESCRIPTION),
                         ACTIVE, equalTo(FALSE),
                         COMPLETED, equalTo(TRUE)
                 );
 
-        long createTime = System.currentTimeMillis() - createStartTime;
-        long globalTime = System.currentTimeMillis() - globalStartTime;
-
         if(experimentNumber != -1) {
-            System.out.printf("%d,%d,%d,%d\n",
-                    experimentNumber, globalTime, createTime, postTime);
+            System.out.printf("%d,%d,%d\n",
+                    experimentNumber, globalTime, postTime);
         }
     }
 

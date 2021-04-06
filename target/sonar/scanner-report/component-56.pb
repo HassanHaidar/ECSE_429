@@ -1,0 +1,1 @@
+8 2javaXhroercoremodel/src/main/java/uk/co/compendiumdev/thingifier/core/domain/definitions/validation/ValidationRule.java

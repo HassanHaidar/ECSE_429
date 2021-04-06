@@ -1,0 +1,1 @@
+# (2javaXhrOtodoManagerRestAuto/src/test/java/uk/co/compendiumdev/performance/TestVars.java

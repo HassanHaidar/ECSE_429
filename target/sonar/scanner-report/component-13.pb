@@ -1,0 +1,1 @@
+ 2xmlXDhr(standAloneTodoListManagerRestApi/pom.xml

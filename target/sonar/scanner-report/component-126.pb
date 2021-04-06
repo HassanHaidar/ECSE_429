@@ -1,0 +1,1 @@
+~ 2javaX	hrathingifier/src/main/java/uk/co/compendiumdev/thingifier/application/ThingifierVersionDetails.java

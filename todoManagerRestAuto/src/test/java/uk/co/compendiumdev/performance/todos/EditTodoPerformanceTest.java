@@ -11,7 +11,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uk.co.compendiumdev.Environment;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.equalTo;
@@ -39,6 +41,8 @@ public class EditTodoPerformanceTest {
     private static final String TRUE = "true";
     private static final String FALSE = "false";
 
+    List<Integer> todoIds = new ArrayList<Integer>();
+
     private static long globalStartTime;
 
 
@@ -48,7 +52,7 @@ public class EditTodoPerformanceTest {
     }
 
     @BeforeEach
-    public void clearDataFromEnv(){
+    public void clearDataFromEnv() throws InterruptedException {
         RestAssured.baseURI = Environment.getBaseUri();
         if(RestAssured.baseURI == null) fail("To Do Manager isn't running!");
 
@@ -60,13 +64,21 @@ public class EditTodoPerformanceTest {
         final int todos = clearedData.getList(TODOS).size();
 
         Assumptions.assumeTrue(todos == 0);
+
+        // populate
+        for(int i = 1; i <= SAMPLES; i++){
+            todoIds.add(createTodo());
+            Thread.sleep(SLEEP_TIME);
+        }
     }
 
     @Test
     public void editTodos() throws InterruptedException {
-        System.out.println("TestNum, Test Start Time (ms), action Time (ms), post Time(ms):");
-        for(int i = 1; i<= SAMPLES; i++){
-            createAndUpdateTodo(i);
+        System.out.println("Sample Number, Global time (ms), transaction time (ms):");
+        int i = 0;
+        for(Integer id: todoIds){
+            updateTodo(i, id);
+            i++;
             Thread.sleep(SLEEP_TIME);
         }
     }
@@ -96,19 +108,18 @@ public class EditTodoPerformanceTest {
         return Integer.parseInt(id);
     }
 
-    private static int createAndUpdateTodo(int experimentNumber){
-        int id = createTodo();
+    private static void updateTodo(int experimentNumber, int todoId){
 
         final HashMap<String, Object> givenBody = new HashMap<>();
         givenBody.put(TITLE, NEW_TITLE);
         givenBody.put(DESCRIPTION, NEW_DESCRIPTION);
         givenBody.put(DONE, false);
 
-        long createStartTime = System.currentTimeMillis();
+        long globalTime = System.currentTimeMillis() - globalStartTime;
 
         long postStartTime = System.currentTimeMillis();
         Response r = given().
-                pathParam(ID, id).
+                pathParam(ID, todoId).
                 body(givenBody).
                 when().
                 put(SPECIFIC_TODO_PATH)
@@ -118,24 +129,13 @@ public class EditTodoPerformanceTest {
                 r.then().contentType(ContentType.JSON)
                 .statusCode(HttpStatus.SC_OK)
                 .body(
-                        ID, equalTo(String.valueOf(id)),
+                        ID, equalTo(String.valueOf(todoId)),
                         TITLE, equalTo(NEW_TITLE),
                         DESCRIPTION, equalTo(NEW_DESCRIPTION),
                         DONE, equalTo(FALSE)
-
                 );
 
-        long createTime = System.currentTimeMillis() - createStartTime;
-
-
-        long globalTime = System.currentTimeMillis() - globalStartTime;
-
-        if(experimentNumber != -1) {
-            System.out.printf("%d,%d,%d,%d\n",
-                    experimentNumber, globalTime, createTime, postTime);
-        }
-
-        return id;
+        System.out.printf("%d,%d,%d\n", experimentNumber, globalTime, postTime);
     }
 
 }
